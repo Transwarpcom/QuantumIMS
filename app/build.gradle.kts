@@ -6,8 +6,8 @@ android {
     namespace = "io.github.vvb2060.ims"
     defaultConfig {
         applicationId = "io.github.turboims.pixel"
-        versionCode = 5
-        versionName = "3.0"
+        versionCode = 6
+        versionName = "3.1"
     }
     buildTypes {
         release {

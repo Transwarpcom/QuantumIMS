@@ -213,6 +213,30 @@
             <!-- 5G NR -->
             <include layout="@layout/feature_item"
                 android:id="@+id/item_5g_nr" />
+
+            <View style="@style/Divider" />
+
+            <!-- Signal Optimization -->
+            <include layout="@layout/feature_item"
+                android:id="@+id/item_signal_opt" />
+
+            <View style="@style/Divider" />
+
+            <!-- GPS Optimization -->
+            <include layout="@layout/feature_item"
+                android:id="@+id/item_gps_opt" />
+
+            <View style="@style/Divider" />
+
+            <!-- Icon Enhancement -->
+            <include layout="@layout/feature_item"
+                android:id="@+id/item_icon_opt" />
+
+            <View style="@style/Divider" />
+
+            <!-- Extra Features -->
+            <include layout="@layout/feature_item"
+                android:id="@+id/item_extra_opt" />
         </LinearLayout>
 
         <!-- Apply Button -->

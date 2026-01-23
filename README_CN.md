@@ -7,7 +7,7 @@
 
   [![Android](https://img.shields.io/badge/Android-14%2B-green.svg)](https://www.android.com/)
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-  [![Version](https://img.shields.io/badge/Version-3.0-brightgreen.svg)](https://github.com/Turbo1123/TurboIMS/releases)
+  [![Version](https://img.shields.io/badge/Version-3.1-brightgreen.svg)](https://github.com/Transwarpcom/TurboIMS/releases)
 
   [English](README.md) | 简体中文
 </div>
@@ -70,14 +70,14 @@
 ## 🚀 安装方法
 
 ### 方法 1：下载 APK（推荐）
-1. 从 [Releases](https://github.com/Turbo1123/TurboIMS/releases) 下载最新 APK
+1. 从 [Releases](https://github.com/Transwarpcom/TurboIMS/releases) 下载最新 APK
 2. 在你的 Pixel 设备上安装 APK
 3. 授予必要的权限
 
 ### 方法 2：从源码构建
 ```bash
 # 克隆仓库
-git clone https://github.com/Turbo1123/TurboIMS.git
+git clone https://github.com/Transwarpcom/TurboIMS.git
 cd TurboIMS
 
 # 构建 debug APK
@@ -203,7 +203,7 @@ limitations under the License.
 ## 🐛 问题反馈与支持
 
 如果你遇到任何问题或有功能请求：
-1. 查看 [现有 Issues](https://github.com/Turbo1123/TurboIMS/issues)
+1. 查看 [现有 Issues](https://github.com/Transwarpcom/TurboIMS/issues)
 2. 创建新 Issue 并提供详细信息：
    - 设备型号
    - Android 版本

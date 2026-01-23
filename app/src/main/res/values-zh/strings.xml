@@ -32,6 +32,18 @@
     <string name="_5g_nr">5G NR（NSA/SA）</string>
     <string name="_5g_nr_desc">启用 5G 网络（非独立/独立组网）</string>
 
+    <string name="signal_opt">信号优化</string>
+    <string name="signal_opt_desc">优化信号显示阈值与切换逻辑</string>
+
+    <string name="gps_opt">GPS 优化</string>
+    <string name="gps_opt_desc">使用 Broadcom PSDS 服务器加速定位</string>
+
+    <string name="icon_opt">图标增强</string>
+    <string name="icon_opt_desc">显示 5G+ 图标与 N78 频段支持</string>
+
+    <string name="extra_opt">额外功能</string>
+    <string name="extra_opt_desc">解锁 APN、短信重试、SA 不计费等</string>
+
     <!-- Button -->
     <string name="apply_config">应用配置</string>
 

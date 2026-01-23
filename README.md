@@ -7,7 +7,7 @@
 
   [![Android](https://img.shields.io/badge/Android-14%2B-green.svg)](https://www.android.com/)
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-  [![Version](https://img.shields.io/badge/Version-3.0-brightgreen.svg)](https://github.com/Turbo1123/TurboIMS/releases)
+  [![Version](https://img.shields.io/badge/Version-3.1-brightgreen.svg)](https://github.com/Transwarpcom/TurboIMS/releases)
 
   English | [简体中文](README_CN.md)
 </div>
@@ -70,14 +70,14 @@ This enhanced version includes a modernized UI, improved user experience, automa
 ## 🚀 Installation
 
 ### Method 1: Download APK (Recommended)
-1. Download the latest APK from [Releases](https://github.com/Turbo1123/TurboIMS/releases)
+1. Download the latest APK from [Releases](https://github.com/Transwarpcom/TurboIMS/releases)
 2. Install the APK on your Pixel device
 3. Grant necessary permissions
 
 ### Method 2: Build from Source
 ```bash
 # Clone the repository
-git clone https://github.com/Turbo1123/TurboIMS.git
+git clone https://github.com/Transwarpcom/TurboIMS.git
 cd TurboIMS
 
 # Build debug APK
@@ -202,7 +202,7 @@ limitations under the License.
 ## 🐛 Issues & Support
 
 If you encounter any issues or have feature requests:
-1. Check [existing issues](https://github.com/Turbo1123/TurboIMS/issues)
+1. Check [existing issues](https://github.com/Transwarpcom/TurboIMS/issues)
 2. Create a new issue with detailed information:
    - Device model
    - Android version
