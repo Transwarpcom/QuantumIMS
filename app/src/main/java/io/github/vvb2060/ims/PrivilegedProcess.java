@@ -172,10 +172,10 @@ public class PrivilegedProcess extends Instrumentation {
             bundle.putIntArray(CarrierConfigManager.KEY_5G_NR_SSRSRP_THRESHOLDS_INT_ARRAY,
                     // Boundaries: [-140 dBm, -44 dBm]
                     new int[]{
-                            -125, /* SIGNAL_STRENGTH_POOR */
-                            -115, /* SIGNAL_STRENGTH_MODERATE */
-                            -105, /* SIGNAL_STRENGTH_GOOD */
-                            -95,  /* SIGNAL_STRENGTH_GREAT */
+                            -128, /* SIGNAL_STRENGTH_POOR */
+                            -118, /* SIGNAL_STRENGTH_MODERATE */
+                            -108, /* SIGNAL_STRENGTH_GOOD */
+                            -98,  /* SIGNAL_STRENGTH_GREAT */
                     });
             bundle.putInt("qns.minimum_handover_guarding_timer_ms_int", 1000);
             bundle.putIntArray("qns.voice_ngran_ssrsrp_int_array", new int[]{-120, -124});
