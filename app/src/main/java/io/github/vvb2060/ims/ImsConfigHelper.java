@@ -119,12 +119,30 @@ public class ImsConfigHelper {
             bundle.putIntArray(CarrierConfigManager.KEY_5G_NR_SSRSRP_THRESHOLDS_INT_ARRAY,
                     // Boundaries: [-140 dBm, -44 dBm]
                     new int[]{
-                            -128, /* SIGNAL_STRENGTH_POOR */
-                            -118, /* SIGNAL_STRENGTH_MODERATE */
-                            -108, /* SIGNAL_STRENGTH_GOOD */
-                            -98,  /* SIGNAL_STRENGTH_GREAT */
+                            -125, /* SIGNAL_STRENGTH_POOR */
+                            -115, /* SIGNAL_STRENGTH_MODERATE */
+                            -105, /* SIGNAL_STRENGTH_GOOD */
+                            -95,  /* SIGNAL_STRENGTH_GREAT */
                     });
+            bundle.putIntArray("additional_nr_advanced_bands_int_array", new int[]{78});
+            bundle.putBoolean("unmetered_nr_sa_bool", true);
         }
+
+        // QNS (地铁信号/切换优化)
+        bundle.putInt("qns.minimum_handover_guarding_timer_ms_int", 1000);
+        bundle.putIntArray("qns.voice_ngran_ssrsrp_int_array", new int[]{-120, -124});
+        bundle.putIntArray("qns.ho_restrict_time_with_low_rtp_quality_int_array", new int[]{3000, 3000});
+
+        // GPS/定位优化
+        bundle.putString("gps.normal_psds_server", "gllto.glpals.com");
+        bundle.putString("gps.longterm_psds_server_1", "gllto.glpals.com");
+
+        // UI/图标增强
+        bundle.putString("5g_icon_configuration_string", "connected_mmwave:5G_PLUS");
+
+        // 其他增强
+        bundle.putInt("imssms.sms_max_retry_over_ims_count_int", 3);
+        bundle.putBoolean("apn_expand_bool", true);
 
         return bundle;
     }
