@@ -111,6 +111,10 @@ public class PrivilegedProcess extends Instrumentation {
         boolean enableCrossSIM = prefs.getBoolean("cross_sim", true);
         boolean enableUT = prefs.getBoolean("ut", true);
         boolean enable5GNR = prefs.getBoolean("5g_nr", true);
+        boolean enableSignalOpt = prefs.getBoolean("signal_opt", true);
+        boolean enableGpsOpt = prefs.getBoolean("gps_opt", true);
+        boolean enableIconOpt = prefs.getBoolean("icon_opt", true);
+        boolean enableExtraOpt = prefs.getBoolean("extra_opt", true);
 
         var bundle = new PersistableBundle();
 
@@ -161,14 +165,41 @@ public class PrivilegedProcess extends Instrumentation {
             bundle.putIntArray(CarrierConfigManager.KEY_CARRIER_NR_AVAILABILITIES_INT_ARRAY,
                     new int[]{CarrierConfigManager.CARRIER_NR_AVAILABILITY_NSA,
                             CarrierConfigManager.CARRIER_NR_AVAILABILITY_SA});
+        }
+
+        // 信号优化 (QNS + Signal Thresholds)
+        if (enableSignalOpt) {
             bundle.putIntArray(CarrierConfigManager.KEY_5G_NR_SSRSRP_THRESHOLDS_INT_ARRAY,
                     // Boundaries: [-140 dBm, -44 dBm]
                     new int[]{
-                            -128, /* SIGNAL_STRENGTH_POOR */
-                            -118, /* SIGNAL_STRENGTH_MODERATE */
-                            -108, /* SIGNAL_STRENGTH_GOOD */
-                            -98,  /* SIGNAL_STRENGTH_GREAT */
+                            -125, /* SIGNAL_STRENGTH_POOR */
+                            -115, /* SIGNAL_STRENGTH_MODERATE */
+                            -105, /* SIGNAL_STRENGTH_GOOD */
+                            -95,  /* SIGNAL_STRENGTH_GREAT */
                     });
+            bundle.putInt("qns.minimum_handover_guarding_timer_ms_int", 1000);
+            bundle.putIntArray("qns.voice_ngran_ssrsrp_int_array", new int[]{-120, -124});
+            bundle.putIntArray("qns.ho_restrict_time_with_low_rtp_quality_int_array", new int[]{3000, 3000});
+        }
+
+        // GPS/定位优化
+        if (enableGpsOpt) {
+            bundle.putString("gps.normal_psds_server", "gllto.glpals.com");
+            bundle.putString("gps.longterm_psds_server_1", "gllto.glpals.com");
+        }
+
+        // UI/图标增强
+        if (enableIconOpt) {
+            bundle.putString("5g_icon_configuration_string", "connected_mmwave:5G_PLUS");
+            bundle.putIntArray("additional_nr_advanced_bands_int_array", new int[]{78});
+        }
+
+        // 其他增强
+        if (enableExtraOpt) {
+            bundle.putInt("imssms.sms_max_retry_over_ims_count_int", 3);
+            bundle.putBoolean("apn_expand_bool", true);
+            // 5G SA Unmetered
+            bundle.putBoolean("unmetered_nr_sa_bool", true);
         }
 
         return bundle;
