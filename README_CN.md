@@ -121,6 +121,13 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 ### 重要提示
 
+⚠️ **Android 16 问题说明**
+
+**由于 Google 补丁封堵了对运营商配置文件的修改，导致 Shizuku 权限不足。在 Android 16 2026.01.05 及以后的版本上，使用 Shizuku 会导致应用配置时失败并闪退。**
+
+- **对于 Root 设备：** 请使用 [Sui](https://github.com/Transwarpcom/Sui) 替代 Shizuku。
+- **对于无 Root 设备：** 暂无解决方案，请等待更新。
+
 ⚠️ **Android 16 QPR2 Beta 3+ 用户**
 - Android 16 Beta 版本上配置不是持久化的
 - 重启后设置会重置
