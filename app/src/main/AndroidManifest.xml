@@ -5,12 +5,12 @@
     <application
         android:label="Turbo IMS"
         android:icon="@mipmap/ic_launcher"
-        android:theme="@android:style/Theme.DeviceDefault.DayNight">
+        android:theme="@style/Theme.TurboIMS">
 
         <activity
             android:name=".SplashActivity"
             android:exported="true"
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar.Fullscreen">
+            android:theme="@style/Theme.TurboIMS">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
