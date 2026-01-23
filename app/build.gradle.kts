@@ -9,13 +9,25 @@ android {
         versionCode = 6
         versionName = "3.1"
     }
+    signingConfigs {
+        create("release") {
+            storeFile = file(System.getenv("KEYSTORE_FILE") ?: "keystore.jks")
+            storePassword = System.getenv("KEYSTORE_PASSWORD")
+            keyAlias = System.getenv("KEY_ALIAS")
+            keyPassword = System.getenv("KEY_PASSWORD")
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
             vcsInfo.include = false
             proguardFiles("proguard-rules.pro")
-            signingConfig = signingConfigs["debug"]
+            if (System.getenv("KEYSTORE_FILE") != null) {
+                signingConfig = signingConfigs["release"]
+            } else {
+                signingConfig = signingConfigs["debug"]
+            }
         }
     }
     compileOptions {
