@@ -120,6 +120,13 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 ### Important Notes
 
+⚠️ **Android 16 Issues**
+
+**Due to a Google patch blocking modification of carrier configuration files, Shizuku permissions are insufficient on Android 16 versions from 2026.01.05 onwards, causing the app to crash when applying configuration.**
+
+- **For Rooted Devices:** Please use [Sui](https://github.com/Transwarpcom/Sui) instead of Shizuku.
+- **For Non-Rooted Devices:** There is currently no solution. Please wait for updates.
+
 ⚠️ **Android 16 QPR2 Beta 3+ Users**
 - Configuration is non-persistent on Android 16 Beta builds
 - Settings will reset after reboot

@@ -22,6 +22,10 @@ public class SplashActivity extends Activity {
             | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         );
 
+        // 设置版本号
+        TextView tvVersion = findViewById(R.id.tv_version);
+        tvVersion.setText("v" + BuildConfig.VERSION_NAME);
+
         // 2秒后跳转到主界面
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
             startActivity(new Intent(this, MainActivity.class));
