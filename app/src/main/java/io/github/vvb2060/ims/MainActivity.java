@@ -36,6 +36,10 @@ public class MainActivity extends Activity {
     private Switch switchCrossSIM;
     private Switch switchUT;
     private Switch switch5GNR;
+    private Switch switchSignalOpt;
+    private Switch switchGpsOpt;
+    private Switch switchIconOpt;
+    private Switch switchExtraOpt;
     private Button btnApply;
 
     private SharedPreferences prefs;
@@ -88,6 +92,10 @@ public class MainActivity extends Activity {
         switchCrossSIM = findViewById(R.id.item_cross_sim).findViewById(R.id.feature_switch);
         switchUT = findViewById(R.id.item_ut).findViewById(R.id.feature_switch);
         switch5GNR = findViewById(R.id.item_5g_nr).findViewById(R.id.feature_switch);
+        switchSignalOpt = findViewById(R.id.item_signal_opt).findViewById(R.id.feature_switch);
+        switchGpsOpt = findViewById(R.id.item_gps_opt).findViewById(R.id.feature_switch);
+        switchIconOpt = findViewById(R.id.item_icon_opt).findViewById(R.id.feature_switch);
+        switchExtraOpt = findViewById(R.id.item_extra_opt).findViewById(R.id.feature_switch);
 
         // Set feature titles and descriptions
         ((TextView) findViewById(R.id.item_volte).findViewById(R.id.feature_title))
@@ -124,6 +132,26 @@ public class MainActivity extends Activity {
             .setText(R.string._5g_nr);
         ((TextView) findViewById(R.id.item_5g_nr).findViewById(R.id.feature_desc))
             .setText(R.string._5g_nr_desc);
+
+        ((TextView) findViewById(R.id.item_signal_opt).findViewById(R.id.feature_title))
+            .setText(R.string.signal_opt);
+        ((TextView) findViewById(R.id.item_signal_opt).findViewById(R.id.feature_desc))
+            .setText(R.string.signal_opt_desc);
+
+        ((TextView) findViewById(R.id.item_gps_opt).findViewById(R.id.feature_title))
+            .setText(R.string.gps_opt);
+        ((TextView) findViewById(R.id.item_gps_opt).findViewById(R.id.feature_desc))
+            .setText(R.string.gps_opt_desc);
+
+        ((TextView) findViewById(R.id.item_icon_opt).findViewById(R.id.feature_title))
+            .setText(R.string.icon_opt);
+        ((TextView) findViewById(R.id.item_icon_opt).findViewById(R.id.feature_desc))
+            .setText(R.string.icon_opt_desc);
+
+        ((TextView) findViewById(R.id.item_extra_opt).findViewById(R.id.feature_title))
+            .setText(R.string.extra_opt);
+        ((TextView) findViewById(R.id.item_extra_opt).findViewById(R.id.feature_desc))
+            .setText(R.string.extra_opt_desc);
 
         btnApply = findViewById(R.id.btn_apply);
         btnApply.setOnClickListener(v -> applyConfiguration());
@@ -190,6 +218,10 @@ public class MainActivity extends Activity {
         switchCrossSIM.setChecked(prefs.getBoolean("cross_sim", true));
         switchUT.setChecked(prefs.getBoolean("ut", true));
         switch5GNR.setChecked(prefs.getBoolean("5g_nr", true));
+        switchSignalOpt.setChecked(prefs.getBoolean("signal_opt", true));
+        switchGpsOpt.setChecked(prefs.getBoolean("gps_opt", true));
+        switchIconOpt.setChecked(prefs.getBoolean("icon_opt", true));
+        switchExtraOpt.setChecked(prefs.getBoolean("extra_opt", true));
     }
 
     private void savePreferences() {
@@ -201,6 +233,10 @@ public class MainActivity extends Activity {
         editor.putBoolean("cross_sim", switchCrossSIM.isChecked());
         editor.putBoolean("ut", switchUT.isChecked());
         editor.putBoolean("5g_nr", switch5GNR.isChecked());
+        editor.putBoolean("signal_opt", switchSignalOpt.isChecked());
+        editor.putBoolean("gps_opt", switchGpsOpt.isChecked());
+        editor.putBoolean("icon_opt", switchIconOpt.isChecked());
+        editor.putBoolean("extra_opt", switchExtraOpt.isChecked());
         editor.apply();
     }
 

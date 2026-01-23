@@ -32,6 +32,18 @@
     <string name="_5g_nr">5G NR (NSA/SA)</string>
     <string name="_5g_nr_desc">Enable 5G network (Non-standalone/Standalone)</string>
 
+    <string name="signal_opt">Signal Optimization</string>
+    <string name="signal_opt_desc">Optimize signal threshold and handover</string>
+
+    <string name="gps_opt">GPS Optimization</string>
+    <string name="gps_opt_desc">Use Broadcom PSDS server for faster lock</string>
+
+    <string name="icon_opt">Icon Enhancement</string>
+    <string name="icon_opt_desc">Show 5G+ icon and N78 support</string>
+
+    <string name="extra_opt">Extra Features</string>
+    <string name="extra_opt_desc">Unlock APN, SMS retry, unmetered SA</string>
+
     <!-- Button -->
     <string name="apply_config">Apply Configuration</string>
 
