@@ -9,12 +9,16 @@ import android.system.Os;
 import android.telephony.CarrierConfigManager;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import rikka.shizuku.ShizukuBinderWrapper;
 
 public class ImsConfigHelper {
 
     private static final String TAG = "ImsConfigHelper";
     private static final String PREFS_NAME = "ims_config";
+    private static final String CUSTOM_OVERRIDES_KEY = "custom_overrides";
 
     public static void applyConfig(Context context, int subId) throws Exception {
         Log.i(TAG, "Starting to apply IMS configuration for subId: " + subId);
@@ -42,6 +46,8 @@ public class ImsConfigHelper {
             var values = buildConfigBundle(enableVoLTE, enableVoWiFi, enableVT, enableVoNR,
                                            enableCrossSIM, enableUT, enable5GNR,
                                            enableSignalOpt, enableGpsOpt, enableIconOpt, enableExtraOpt);
+
+            applyCustomOverrides(context, values);
 
             var bundle = cm.getConfigForSubId(subId, "vvb2060_config_version");
             if (bundle.getInt("vvb2060_config_version", 0) != BuildConfig.VERSION_CODE) {
@@ -152,5 +158,53 @@ public class ImsConfigHelper {
         bundle.putBoolean("unmetered_nr_sa_bool", enableExtraOpt);
 
         return bundle;
+    }
+
+    private static void applyCustomOverrides(Context context, PersistableBundle bundle) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String json = prefs.getString(CUSTOM_OVERRIDES_KEY, "{}");
+        try {
+            JSONObject overrides = new JSONObject(json);
+            java.util.Iterator<String> keys = overrides.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                Object value = overrides.get(key);
+                if (value instanceof Boolean) {
+                    bundle.putBoolean(key, (Boolean) value);
+                } else if (value instanceof Integer) {
+                    bundle.putInt(key, (Integer) value);
+                } else if (value instanceof Long) {
+                    bundle.putLong(key, (Long) value);
+                } else if (value instanceof Double) {
+                    bundle.putDouble(key, (Double) value);
+                } else if (value instanceof String) {
+                    bundle.putString(key, (String) value);
+                } else if (value instanceof JSONArray) {
+                    JSONArray array = (JSONArray) value;
+                    if (array.length() > 0) {
+                        Object first = array.get(0);
+                        if (first instanceof Integer) {
+                            int[] intArray = new int[array.length()];
+                            for (int i = 0; i < array.length(); i++) {
+                                intArray[i] = array.getInt(i);
+                            }
+                            bundle.putIntArray(key, intArray);
+                        } else if (first instanceof String) {
+                            String[] stringArray = new String[array.length()];
+                            for (int i = 0; i < array.length(); i++) {
+                                stringArray[i] = array.getString(i);
+                            }
+                            bundle.putStringArray(key, stringArray);
+                        }
+                    } else {
+                        // Empty array, try to infer or skip. Assuming int[] for now as typical signal thresholds are int[].
+                        // Or just skip empty.
+                        bundle.putIntArray(key, new int[0]);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to apply custom overrides", e);
+        }
     }
 }
