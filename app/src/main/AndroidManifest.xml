@@ -16,6 +16,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ConfigEditorActivity"
+            android:exported="false"
+            android:label="@string/advanced_config_editor"
+            android:theme="@style/Theme.TurboIMS"
+            android:parentActivityName=".MainActivity" />
+
         <provider
             android:name=".ShizukuProvider"
             android:authorities="${applicationId}.shizuku"
