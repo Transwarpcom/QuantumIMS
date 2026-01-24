@@ -128,46 +128,36 @@ public class PrivilegedProcess extends Instrumentation {
         var bundle = new PersistableBundle();
 
         // VoLTE 配置
-        if (enableVoLTE) {
-            bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_VOLTE_AVAILABLE_BOOL, true);
-            bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_ENHANCED_4G_LTE_BOOL, true);
-            bundle.putBoolean(CarrierConfigManager.KEY_HIDE_ENHANCED_4G_LTE_BOOL, false);
-            bundle.putBoolean(CarrierConfigManager.KEY_HIDE_LTE_PLUS_DATA_ICON_BOOL, false);
-        }
+        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_VOLTE_AVAILABLE_BOOL, enableVoLTE);
+        bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_ENHANCED_4G_LTE_BOOL, enableVoLTE);
+        bundle.putBoolean(CarrierConfigManager.KEY_HIDE_ENHANCED_4G_LTE_BOOL, !enableVoLTE);
+        bundle.putBoolean(CarrierConfigManager.KEY_HIDE_LTE_PLUS_DATA_ICON_BOOL, !enableVoLTE);
 
         // VT (视频通话) 配置
-        if (enableVT) {
-            bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_VT_AVAILABLE_BOOL, true);
-        }
+        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_VT_AVAILABLE_BOOL, enableVT);
 
         // UT 补充服务配置
-        if (enableUT) {
-            bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_SUPPORTS_SS_OVER_UT_BOOL, true);
-        }
+        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_SUPPORTS_SS_OVER_UT_BOOL, enableUT);
 
         // 跨 SIM 通话配置
-        if (enableCrossSIM) {
-            bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_CROSS_SIM_IMS_AVAILABLE_BOOL, true);
-            bundle.putBoolean(CarrierConfigManager.KEY_ENABLE_CROSS_SIM_CALLING_ON_OPPORTUNISTIC_DATA_BOOL, true);
-        }
+        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_CROSS_SIM_IMS_AVAILABLE_BOOL, enableCrossSIM);
+        bundle.putBoolean(CarrierConfigManager.KEY_ENABLE_CROSS_SIM_CALLING_ON_OPPORTUNISTIC_DATA_BOOL, enableCrossSIM);
 
         // VoWiFi 配置
+        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_WFC_IMS_AVAILABLE_BOOL, enableVoWiFi);
+        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_WFC_SUPPORTS_WIFI_ONLY_BOOL, enableVoWiFi);
+        bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_WFC_MODE_BOOL, enableVoWiFi);
+        bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_WFC_ROAMING_MODE_BOOL, enableVoWiFi);
+        // KEY_SHOW_WIFI_CALLING_ICON_IN_STATUS_BAR_BOOL
+        bundle.putBoolean("show_wifi_calling_icon_in_status_bar_bool", enableVoWiFi);
         if (enableVoWiFi) {
-            bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_WFC_IMS_AVAILABLE_BOOL, true);
-            bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_WFC_SUPPORTS_WIFI_ONLY_BOOL, true);
-            bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_WFC_MODE_BOOL, true);
-            bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_WFC_ROAMING_MODE_BOOL, true);
-            // KEY_SHOW_WIFI_CALLING_ICON_IN_STATUS_BAR_BOOL
-            bundle.putBoolean("show_wifi_calling_icon_in_status_bar_bool", true);
             // KEY_WFC_SPN_FORMAT_IDX_INT
             bundle.putInt("wfc_spn_format_idx_int", 6);
         }
 
         // VoNR (5G 语音) 配置
-        if (enableVoNR) {
-            bundle.putBoolean(CarrierConfigManager.KEY_VONR_ENABLED_BOOL, true);
-            bundle.putBoolean(CarrierConfigManager.KEY_VONR_SETTING_VISIBILITY_BOOL, true);
-        }
+        bundle.putBoolean(CarrierConfigManager.KEY_VONR_ENABLED_BOOL, enableVoNR);
+        bundle.putBoolean(CarrierConfigManager.KEY_VONR_SETTING_VISIBILITY_BOOL, enableVoNR);
 
         // 5G NR 配置
         if (enable5GNR) {
@@ -207,10 +197,10 @@ public class PrivilegedProcess extends Instrumentation {
         // 其他增强
         if (enableExtraOpt) {
             bundle.putInt("imssms.sms_max_retry_over_ims_count_int", 3);
-            bundle.putBoolean("apn_expand_bool", true);
-            // 5G SA Unmetered
-            bundle.putBoolean("unmetered_nr_sa_bool", true);
         }
+        bundle.putBoolean("apn_expand_bool", enableExtraOpt);
+        // 5G SA Unmetered
+        bundle.putBoolean("unmetered_nr_sa_bool", enableExtraOpt);
 
         return bundle;
     }

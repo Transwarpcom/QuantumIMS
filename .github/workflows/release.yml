@@ -7,6 +7,10 @@ on:
         description: 'Release version (e.g. v3.1)'
         required: true
         default: 'v3.1'
+      version_code:
+        description: 'Version Code (e.g. 10)'
+        required: true
+        default: '6'
 
 jobs:
   build:
@@ -41,7 +45,8 @@ jobs:
       run: |
         VERSION_NAME=${{ github.event.inputs.version }}
         VERSION_NAME=${VERSION_NAME#v}
-        ./gradlew assembleRelease -PciVersionName="$VERSION_NAME" -PciVersionCode=${{ github.run_number }}
+        VERSION_CODE=${{ github.event.inputs.version_code }}
+        ./gradlew assembleRelease -PciVersionName="$VERSION_NAME" -PciVersionCode=$VERSION_CODE
 
     - name: Create Release
       id: create_release
