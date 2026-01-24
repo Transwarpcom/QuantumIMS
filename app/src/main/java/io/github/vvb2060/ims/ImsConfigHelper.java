@@ -149,7 +149,8 @@ public class ImsConfigHelper {
         // UI/图标增强
         if (enableIconOpt) {
             bundle.putString("5g_icon_configuration_string", "connected_mmwave:5G_PLUS");
-            bundle.putIntArray("additional_nr_advanced_bands_int_array", new int[]{78});
+            // China Mobile: n41, n79; Unicom/Telecom: n78
+            bundle.putIntArray("additional_nr_advanced_bands_int_array", new int[]{41, 78, 79});
         }
 
         // 其他增强
