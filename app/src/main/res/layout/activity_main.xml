@@ -150,79 +150,22 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="vertical">
 
                     <TextView
                         style="@style/SectionTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/features_config"
-                        android:paddingBottom="16dp" />
+                        android:paddingHorizontal="16dp"
+                        android:paddingTop="16dp"
+                        android:paddingBottom="8dp" />
 
-                    <!-- VoLTE -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_volte" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- VoWiFi -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_vowifi" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- VT -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_vt" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- VoNR -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_vonr" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- Cross SIM -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_cross_sim" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- UT -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_ut" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- 5G NR -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_5g_nr" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- Signal Optimization -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_signal_opt" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- GPS Optimization -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_gps_opt" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- Icon Enhancement -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_icon_opt" />
-
-                    <View style="@style/Divider" />
-
-                    <!-- Extra Features -->
-                    <include layout="@layout/feature_item"
-                        android:id="@+id/item_extra_opt" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/configRecyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
