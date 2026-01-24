@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
 import android.util.TypedValue;
+import android.widget.ImageView;
+import com.google.android.material.materialswitch.MaterialSwitch;
 
 public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder> {
 
@@ -44,6 +46,14 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Decide layout?
+        // Let's use config_list_item.xml but modify it to support icon and switch if needed.
+        // Or create a new layout `config_list_item_rich.xml`.
+        // Since I'm reusing ConfigAdapter for both Activities, let's check item type or just make the layout flexible.
+        // I will assume config_list_item can handle it or I update it.
+        // Actually, for "Presets", we want icon + title + desc + switch.
+        // For "Advanced", we want Key + Value.
+        // Let's check item type.
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.config_list_item, parent, false);
         return new ViewHolder(view);
@@ -52,23 +62,49 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ConfigItem item = filteredItems.get(position);
-        holder.textKey.setText(item.key);
-        holder.textValue.setText(item.getValueString());
-
-        // Highlight overridden values using theme colors if possible, or explicit colors
         Context context = holder.itemView.getContext();
-        if (item.isOverridden) {
-            holder.textKey.setTextColor(context.getColor(android.R.color.holo_blue_light)); // Or use a theme attribute resolving logic
+
+        if (item instanceof MainActivity.PresetConfigItem) {
+            MainActivity.PresetConfigItem preset = (MainActivity.PresetConfigItem) item;
+            holder.textKey.setText(preset.definition.title);
+            holder.textValue.setText(preset.definition.description);
+            if (holder.icon != null) {
+                holder.icon.setVisibility(View.VISIBLE);
+                holder.icon.setImageResource(preset.definition.iconRes);
+            }
+
+            if (preset.defaultValue instanceof Boolean) {
+                if (holder.toggle != null) {
+                    holder.toggle.setVisibility(View.VISIBLE);
+                    boolean isChecked = preset.isOverridden ? (Boolean) preset.overrideValue : (Boolean) preset.defaultValue;
+                    holder.toggle.setOnCheckedChangeListener(null);
+                    holder.toggle.setChecked(isChecked);
+                    holder.toggle.setOnCheckedChangeListener((v, checked) -> {
+                        // We need to trigger listener
+                        listener.onItemClick(item); // This will toggle in MainActivity logic
+                    });
+                    // Disable click on item view if switch handles it? No, click anywhere to toggle is fine.
+                    // But switch needs to be clickable.
+                }
+            } else {
+                if (holder.toggle != null) holder.toggle.setVisibility(View.GONE);
+                // Show current value for non-boolean?
+                holder.textValue.setText(preset.definition.description + "\nValue: " + item.getValueString());
+            }
         } else {
-            // Reset to default color (using what was defined in XML)
-            // Ideally retrieve from XML default, but setting to ?attr/colorOnSurface via code is tricky without helper
-            // We'll rely on recreation/rebinding resetting it usually, but safer to set explicitly if we had color refs
-            // For simplicity in this environment:
-            holder.textKey.setTextColor(context.getResources().getColor(android.R.color.black, null)); // Fallback
-            // Better: parse attr. But let's assume default is black/white
-            // Actually, let's just use the view's default color logic or a specific color resource.
-            // Using logic:
-            TypedValue typedValue = new TypedValue();
+            // Standard/Advanced mode
+            holder.textKey.setText(item.key);
+            holder.textValue.setText(item.getValueString());
+            if (holder.icon != null) holder.icon.setVisibility(View.GONE);
+            if (holder.toggle != null) holder.toggle.setVisibility(View.GONE);
+        }
+
+        // Highlight overridden
+        TypedValue typedValue = new TypedValue();
+        if (item.isOverridden) {
+            context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorPrimary, typedValue, true);
+            holder.textKey.setTextColor(typedValue.data);
+        } else {
             context.getTheme().resolveAttribute(com.google.android.material.R.attr.colorOnSurface, typedValue, true);
             holder.textKey.setTextColor(typedValue.data);
         }
@@ -82,12 +118,22 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView textKey;
         TextView textValue;
+        ImageView icon;
+        MaterialSwitch toggle;
 
         ViewHolder(View itemView) {
             super(itemView);
             textKey = itemView.findViewById(R.id.text_key);
             textValue = itemView.findViewById(R.id.text_value);
-            itemView.setOnClickListener(v -> listener.onItemClick(filteredItems.get(getAdapterPosition())));
+            icon = itemView.findViewById(R.id.item_icon); // Needs to be added to layout
+            toggle = itemView.findViewById(R.id.item_switch); // Needs to be added to layout
+            itemView.setOnClickListener(v -> {
+                if (toggle != null && toggle.getVisibility() == View.VISIBLE) {
+                    toggle.toggle();
+                } else {
+                    listener.onItemClick(filteredItems.get(getAdapterPosition()));
+                }
+            });
         }
     }
 }

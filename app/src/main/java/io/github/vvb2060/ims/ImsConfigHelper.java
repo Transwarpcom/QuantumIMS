@@ -43,10 +43,14 @@ public class ImsConfigHelper {
             boolean enableExtraOpt = prefs.getBoolean("extra_opt", true);
 
             var cm = context.getSystemService(CarrierConfigManager.class);
-            var values = buildConfigBundle(enableVoLTE, enableVoWiFi, enableVT, enableVoNR,
-                                           enableCrossSIM, enableUT, enable5GNR,
-                                           enableSignalOpt, enableGpsOpt, enableIconOpt, enableExtraOpt);
+            var values = new PersistableBundle();
 
+            // Apply Presets
+            for (ConfigDefinition def : PresetConfigs.getPresets()) {
+                applyConfigItem(values, def.key, def.defaultValue);
+            }
+
+            // Apply Overrides
             applyCustomOverrides(context, values);
 
             var bundle = cm.getConfigForSubId(subId, "vvb2060_config_version");
@@ -74,91 +78,7 @@ public class ImsConfigHelper {
         }
     }
 
-    private static PersistableBundle buildConfigBundle(boolean enableVoLTE, boolean enableVoWiFi,
-                                                        boolean enableVT, boolean enableVoNR,
-                                                        boolean enableCrossSIM, boolean enableUT,
-                                                        boolean enable5GNR,
-                                                        boolean enableSignalOpt, boolean enableGpsOpt,
-                                                        boolean enableIconOpt, boolean enableExtraOpt) {
-        var bundle = new PersistableBundle();
-
-        // VoLTE 配置
-        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_VOLTE_AVAILABLE_BOOL, enableVoLTE);
-        bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_ENHANCED_4G_LTE_BOOL, enableVoLTE);
-        bundle.putBoolean(CarrierConfigManager.KEY_HIDE_ENHANCED_4G_LTE_BOOL, !enableVoLTE);
-        bundle.putBoolean(CarrierConfigManager.KEY_HIDE_LTE_PLUS_DATA_ICON_BOOL, !enableVoLTE);
-
-        // VT (视频通话) 配置
-        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_VT_AVAILABLE_BOOL, enableVT);
-
-        // UT 补充服务配置
-        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_SUPPORTS_SS_OVER_UT_BOOL, enableUT);
-
-        // 跨 SIM 通话配置
-        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_CROSS_SIM_IMS_AVAILABLE_BOOL, enableCrossSIM);
-        bundle.putBoolean(CarrierConfigManager.KEY_ENABLE_CROSS_SIM_CALLING_ON_OPPORTUNISTIC_DATA_BOOL, enableCrossSIM);
-
-        // VoWiFi 配置
-        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_WFC_IMS_AVAILABLE_BOOL, enableVoWiFi);
-        bundle.putBoolean(CarrierConfigManager.KEY_CARRIER_WFC_SUPPORTS_WIFI_ONLY_BOOL, enableVoWiFi);
-        bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_WFC_MODE_BOOL, enableVoWiFi);
-        bundle.putBoolean(CarrierConfigManager.KEY_EDITABLE_WFC_ROAMING_MODE_BOOL, enableVoWiFi);
-        // KEY_SHOW_WIFI_CALLING_ICON_IN_STATUS_BAR_BOOL
-        bundle.putBoolean("show_wifi_calling_icon_in_status_bar_bool", enableVoWiFi);
-        if (enableVoWiFi) {
-            // KEY_WFC_SPN_FORMAT_IDX_INT
-            bundle.putInt("wfc_spn_format_idx_int", 6);
-        }
-
-        // VoNR (5G 语音) 配置
-        bundle.putBoolean(CarrierConfigManager.KEY_VONR_ENABLED_BOOL, enableVoNR);
-        bundle.putBoolean(CarrierConfigManager.KEY_VONR_SETTING_VISIBILITY_BOOL, enableVoNR);
-
-        // 5G NR 配置
-        if (enable5GNR) {
-            bundle.putIntArray(CarrierConfigManager.KEY_CARRIER_NR_AVAILABILITIES_INT_ARRAY,
-                    new int[]{CarrierConfigManager.CARRIER_NR_AVAILABILITY_NSA,
-                            CarrierConfigManager.CARRIER_NR_AVAILABILITY_SA});
-        }
-
-        // 信号优化 (QNS + Signal Thresholds)
-        if (enableSignalOpt) {
-            bundle.putIntArray(CarrierConfigManager.KEY_5G_NR_SSRSRP_THRESHOLDS_INT_ARRAY,
-                    // Boundaries: [-140 dBm, -44 dBm]
-                    new int[]{
-                            -128, /* SIGNAL_STRENGTH_POOR */
-                            -118, /* SIGNAL_STRENGTH_MODERATE */
-                            -108, /* SIGNAL_STRENGTH_GOOD */
-                            -98,  /* SIGNAL_STRENGTH_GREAT */
-                    });
-            bundle.putInt("qns.minimum_handover_guarding_timer_ms_int", 1000);
-            bundle.putIntArray("qns.voice_ngran_ssrsrp_int_array", new int[]{-120, -124});
-            bundle.putIntArray("qns.ho_restrict_time_with_low_rtp_quality_int_array", new int[]{3000, 3000});
-        }
-
-        // GPS/定位优化
-        if (enableGpsOpt) {
-            bundle.putString("gps.normal_psds_server", "gllto.glpals.com");
-            bundle.putString("gps.longterm_psds_server_1", "gllto.glpals.com");
-        }
-
-        // UI/图标增强
-        if (enableIconOpt) {
-            bundle.putString("5g_icon_configuration_string", "connected_mmwave:5G_PLUS");
-            // China Mobile: n41, n79; Unicom/Telecom: n78
-            bundle.putIntArray("additional_nr_advanced_bands_int_array", new int[]{41, 78, 79});
-        }
-
-        // 其他增强
-        if (enableExtraOpt) {
-            bundle.putInt("imssms.sms_max_retry_over_ims_count_int", 3);
-        }
-        bundle.putBoolean("apn_expand_bool", enableExtraOpt);
-        // 5G SA Unmetered
-        bundle.putBoolean("unmetered_nr_sa_bool", enableExtraOpt);
-
-        return bundle;
-    }
+    // Removed buildConfigBundle as we use custom overrides exclusively.
 
     private static void applyCustomOverrides(Context context, PersistableBundle bundle) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -169,42 +89,52 @@ public class ImsConfigHelper {
             while (keys.hasNext()) {
                 String key = keys.next();
                 Object value = overrides.get(key);
-                if (value instanceof Boolean) {
-                    bundle.putBoolean(key, (Boolean) value);
-                } else if (value instanceof Integer) {
-                    bundle.putInt(key, (Integer) value);
-                } else if (value instanceof Long) {
-                    bundle.putLong(key, (Long) value);
-                } else if (value instanceof Double) {
-                    bundle.putDouble(key, (Double) value);
-                } else if (value instanceof String) {
-                    bundle.putString(key, (String) value);
-                } else if (value instanceof JSONArray) {
-                    JSONArray array = (JSONArray) value;
-                    if (array.length() > 0) {
-                        Object first = array.get(0);
-                        if (first instanceof Integer) {
-                            int[] intArray = new int[array.length()];
-                            for (int i = 0; i < array.length(); i++) {
-                                intArray[i] = array.getInt(i);
-                            }
-                            bundle.putIntArray(key, intArray);
-                        } else if (first instanceof String) {
-                            String[] stringArray = new String[array.length()];
-                            for (int i = 0; i < array.length(); i++) {
-                                stringArray[i] = array.getString(i);
-                            }
-                            bundle.putStringArray(key, stringArray);
-                        }
-                    } else {
-                        // Empty array, try to infer or skip. Assuming int[] for now as typical signal thresholds are int[].
-                        // Or just skip empty.
-                        bundle.putIntArray(key, new int[0]);
-                    }
-                }
+                applyConfigItem(bundle, key, value);
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to apply custom overrides", e);
+        }
+    }
+
+    private static void applyConfigItem(PersistableBundle bundle, String key, Object value) {
+        if (value instanceof Boolean) {
+            bundle.putBoolean(key, (Boolean) value);
+        } else if (value instanceof Integer) {
+            bundle.putInt(key, (Integer) value);
+        } else if (value instanceof Long) {
+            bundle.putLong(key, (Long) value);
+        } else if (value instanceof Double) {
+            bundle.putDouble(key, (Double) value);
+        } else if (value instanceof String) {
+            bundle.putString(key, (String) value);
+        } else if (value instanceof int[]) {
+            bundle.putIntArray(key, (int[]) value);
+        } else if (value instanceof String[]) {
+            bundle.putStringArray(key, (String[]) value);
+        } else if (value instanceof JSONArray) {
+            JSONArray array = (JSONArray) value;
+            try {
+                if (array.length() > 0) {
+                    Object first = array.get(0);
+                    if (first instanceof Integer) {
+                        int[] intArray = new int[array.length()];
+                        for (int i = 0; i < array.length(); i++) {
+                            intArray[i] = array.getInt(i);
+                        }
+                        bundle.putIntArray(key, intArray);
+                    } else if (first instanceof String) {
+                        String[] stringArray = new String[array.length()];
+                        for (int i = 0; i < array.length(); i++) {
+                            stringArray[i] = array.getString(i);
+                        }
+                        bundle.putStringArray(key, stringArray);
+                    }
+                } else {
+                    bundle.putIntArray(key, new int[0]);
+                }
+            } catch (Exception e) {
+                // Ignore parsing errors
+            }
         }
     }
 }

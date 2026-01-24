@@ -48,20 +48,33 @@ public class ConfigEditorActivity extends AppCompatActivity {
     private void loadConfig() {
         CarrierConfigManager cm = getSystemService(CarrierConfigManager.class);
         PersistableBundle bundle = null;
-        if (subId != -1) {
-            bundle = cm.getConfigForSubId(subId);
-        } else {
-            bundle = cm.getConfig();
+        try {
+            if (subId != -1) {
+                bundle = cm.getConfigForSubId(subId);
+            } else {
+                bundle = cm.getConfig();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        if (bundle == null) return;
+        if (bundle == null) {
+            // Handle null bundle (e.g. invalid subId or service not ready)
+            return;
+        }
 
         allItems.clear();
         for (String key : bundle.keySet()) {
             Object value = bundle.get(key);
-            allItems.add(new ConfigItem(key, value));
+            if (key != null) {
+                allItems.add(new ConfigItem(key, value));
+            }
         }
-        Collections.sort(allItems, (a, b) -> a.key.compareToIgnoreCase(b.key));
+        Collections.sort(allItems, (a, b) -> {
+            if (a.key == null) return -1;
+            if (b.key == null) return 1;
+            return a.key.compareToIgnoreCase(b.key);
+        });
 
         // Load overrides
         SharedPreferences prefs = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);

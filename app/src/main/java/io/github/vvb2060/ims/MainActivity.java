@@ -12,15 +12,22 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
+import java.util.List;
+import android.widget.EditText;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import org.json.JSONObject;
 
 import rikka.shizuku.Shizuku;
 
 public class MainActivity extends Activity {
 
     private static final String PREFS_NAME = "ims_config";
+    private static final String CUSTOM_OVERRIDES_KEY = "custom_overrides";
     private static final String TAG = "IMS_MainActivity";
 
     private TextView tvAndroidVersion;
@@ -29,18 +36,9 @@ public class MainActivity extends Activity {
     private TextView tvSimInfo;
     private Button btnSelectSim;
     private Button btnSwitchLanguage;
-    private Switch switchVoLTE;
-    private Switch switchVoWiFi;
-    private Switch switchVT;
-    private Switch switchVoNR;
-    private Switch switchCrossSIM;
-    private Switch switchUT;
-    private Switch switch5GNR;
-    private Switch switchSignalOpt;
-    private Switch switchGpsOpt;
-    private Switch switchIconOpt;
-    private Switch switchExtraOpt;
     private Button btnApply;
+    private RecyclerView configRecyclerView;
+    private ConfigAdapter adapter;
 
     private SharedPreferences prefs;
     private int selectedSubId = 1; // 默认SIM 1, -1表示全部应用
@@ -60,7 +58,7 @@ public class MainActivity extends Activity {
         prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         initViews();
-        loadPreferences();
+        loadConfigItems();
         updateSimInfo();
         updateAndroidVersionInfo();
         updateShizukuStatus();
@@ -87,32 +85,8 @@ public class MainActivity extends Activity {
         tvSimInfo = findViewById(R.id.tv_sim_info);
         btnSelectSim = findViewById(R.id.btn_select_sim);
         btnSwitchLanguage = findViewById(R.id.btn_switch_language);
-
-        // Find switches from included layouts
-        switchVoLTE = findViewById(R.id.item_volte).findViewById(R.id.feature_switch);
-        switchVoWiFi = findViewById(R.id.item_vowifi).findViewById(R.id.feature_switch);
-        switchVT = findViewById(R.id.item_vt).findViewById(R.id.feature_switch);
-        switchVoNR = findViewById(R.id.item_vonr).findViewById(R.id.feature_switch);
-        switchCrossSIM = findViewById(R.id.item_cross_sim).findViewById(R.id.feature_switch);
-        switchUT = findViewById(R.id.item_ut).findViewById(R.id.feature_switch);
-        switch5GNR = findViewById(R.id.item_5g_nr).findViewById(R.id.feature_switch);
-        switchSignalOpt = findViewById(R.id.item_signal_opt).findViewById(R.id.feature_switch);
-        switchGpsOpt = findViewById(R.id.item_gps_opt).findViewById(R.id.feature_switch);
-        switchIconOpt = findViewById(R.id.item_icon_opt).findViewById(R.id.feature_switch);
-        switchExtraOpt = findViewById(R.id.item_extra_opt).findViewById(R.id.feature_switch);
-
-        // Set feature titles, descriptions and icons
-        setupFeatureItem(R.id.item_volte, R.string.volte, R.string.volte_desc, R.drawable.ic_volte);
-        setupFeatureItem(R.id.item_vowifi, R.string.vowifi, R.string.vowifi_desc, R.drawable.ic_vowifi);
-        setupFeatureItem(R.id.item_vt, R.string.vt, R.string.vt_desc, R.drawable.ic_vt);
-        setupFeatureItem(R.id.item_vonr, R.string.vonr, R.string.vonr_desc, R.drawable.ic_5g);
-        setupFeatureItem(R.id.item_cross_sim, R.string.cross_sim, R.string.cross_sim_desc, R.drawable.ic_sim);
-        setupFeatureItem(R.id.item_ut, R.string.ut, R.string.ut_desc, R.drawable.ic_settings);
-        setupFeatureItem(R.id.item_5g_nr, R.string._5g_nr, R.string._5g_nr_desc, R.drawable.ic_5g);
-        setupFeatureItem(R.id.item_signal_opt, R.string.signal_opt, R.string.signal_opt_desc, R.drawable.ic_signal);
-        setupFeatureItem(R.id.item_gps_opt, R.string.gps_opt, R.string.gps_opt_desc, R.drawable.ic_gps);
-        setupFeatureItem(R.id.item_icon_opt, R.string.icon_opt, R.string.icon_opt_desc, R.drawable.ic_info);
-        setupFeatureItem(R.id.item_extra_opt, R.string.extra_opt, R.string.extra_opt_desc, R.drawable.ic_settings);
+        configRecyclerView = findViewById(R.id.configRecyclerView);
+        configRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         btnApply = findViewById(R.id.btn_apply);
         btnApply.setOnClickListener(v -> applyConfiguration());
@@ -127,11 +101,141 @@ public class MainActivity extends Activity {
         });
     }
 
-    private void setupFeatureItem(int itemId, int titleRes, int descRes, int iconRes) {
-        View item = findViewById(itemId);
-        ((TextView) item.findViewById(R.id.feature_title)).setText(titleRes);
-        ((TextView) item.findViewById(R.id.feature_desc)).setText(descRes);
-        ((android.widget.ImageView) item.findViewById(R.id.feature_icon)).setImageResource(iconRes);
+    private void loadConfigItems() {
+        List<ConfigDefinition> definitions = PresetConfigs.getPresets();
+        List<ConfigItem> items = new ArrayList<>();
+
+        String json = prefs.getString(CUSTOM_OVERRIDES_KEY, "{}");
+        JSONObject overrides = new JSONObject();
+        try {
+            overrides = new JSONObject(json);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (ConfigDefinition def : definitions) {
+            ConfigItem item = new ConfigItem(def.key, def.defaultValue);
+            // item.title = def.title; // ConfigItem needs title/desc/icon fields
+            // Since ConfigItem is shared, I need to update it or create a subclass/wrapper.
+            // For simplicity, let's update ConfigAdapter to handle ConfigDefinition lookup or extend ConfigItem.
+            // Wait, ConfigItem is simple. Let's make ConfigAdapter robust or create a combined model.
+            // Easier: Modify ConfigAdapter to accept ConfigDefinition list or enrich ConfigItem.
+            // Let's assume I'll update ConfigAdapter to bind these.
+            // Actually, I'll update ConfigItem to hold metadata if passed.
+
+            // Check override
+            if (overrides.has(def.key)) {
+                try {
+                    item.overrideValue = overrides.get(def.key);
+                    item.isOverridden = true;
+                } catch (Exception e) {}
+            }
+            items.add(item);
+        }
+
+        // We need an adapter that can display the rich UI (Icon, Title, Desc, Switch/Edit).
+        // The existing ConfigAdapter is simple key-value.
+        // I will create a new PresetAdapter in the next step or update ConfigAdapter.
+        // For now, I'll instantiate ConfigAdapter and assume I will update it.
+        // Wait, I am in 'Refactor MainActivity UI' step. I should have updated ConfigAdapter first or simultaneously.
+        // I'll update ConfigAdapter in the next planned step. Here I just set it up.
+
+        // I need to pass the definitions to the adapter so it can show titles/icons.
+        // I'll assume ConfigAdapter will have a `setDefinitions(Map<String, ConfigDefinition>)` or similar.
+        // Or I can subclass ConfigItem to PresetConfigItem extends ConfigItem.
+        // Let's do that in memory here.
+        List<ConfigItem> richItems = new ArrayList<>();
+        for (int i = 0; i < items.size(); i++) {
+            ConfigItem simple = items.get(i);
+            ConfigDefinition def = definitions.get(i);
+            PresetConfigItem rich = new PresetConfigItem(simple.key, simple.defaultValue, def);
+            rich.overrideValue = simple.overrideValue;
+            rich.isOverridden = simple.isOverridden;
+            richItems.add(rich);
+        }
+
+        adapter = new ConfigAdapter(richItems, this::onPresetItemClick);
+        configRecyclerView.setAdapter(adapter);
+    }
+
+    public static class PresetConfigItem extends ConfigItem {
+        public ConfigDefinition definition;
+        public PresetConfigItem(String key, Object defaultValue, ConfigDefinition definition) {
+            super(key, defaultValue);
+            this.definition = definition;
+        }
+    }
+
+    private void onPresetItemClick(ConfigItem item) {
+        if (item instanceof PresetConfigItem) {
+            PresetConfigItem pItem = (PresetConfigItem) item;
+            if (pItem.defaultValue instanceof Boolean) {
+                // Toggle
+                boolean current = pItem.isOverridden ? (Boolean) pItem.overrideValue : (Boolean) pItem.defaultValue;
+                saveOverride(item, String.valueOf(!current));
+            } else {
+                // Show edit dialog
+                showEditDialog(item);
+            }
+        } else {
+            showEditDialog(item);
+        }
+    }
+
+    private void showEditDialog(ConfigItem item) {
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+            .setTitle(item.key);
+
+        if (item instanceof PresetConfigItem) {
+            builder.setTitle(((PresetConfigItem)item).definition.title);
+        }
+
+        final EditText input = new EditText(this);
+        input.setText(item.getValueString());
+        builder.setView(input);
+
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            saveOverride(item, input.getText().toString());
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.setNeutralButton("Reset", (dialog, which) -> {
+            removeOverride(item);
+        });
+        builder.show();
+    }
+
+    private void saveOverride(ConfigItem item, String newValue) {
+        try {
+            Object val = item.parse(newValue);
+            item.overrideValue = val;
+            item.isOverridden = true; // For boolean toggles, if we toggle away from default, it's an override.
+            // Actually, if we toggle back to default, should we remove override?
+            // "Allow users to configure each item independently".
+            // If they toggle, we save the new state.
+
+            adapter.notifyDataSetChanged();
+
+            // Save to prefs
+            String json = prefs.getString(CUSTOM_OVERRIDES_KEY, "{}");
+            JSONObject overrides = new JSONObject(json);
+            overrides.put(item.key, item.overrideValue);
+            prefs.edit().putString(CUSTOM_OVERRIDES_KEY, overrides.toString()).apply();
+        } catch (Exception e) {
+            Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void removeOverride(ConfigItem item) {
+        item.isOverridden = false;
+        item.overrideValue = null;
+        adapter.notifyDataSetChanged();
+
+        try {
+            String json = prefs.getString(CUSTOM_OVERRIDES_KEY, "{}");
+            JSONObject overrides = new JSONObject(json);
+            overrides.remove(item.key);
+            prefs.edit().putString(CUSTOM_OVERRIDES_KEY, overrides.toString()).apply();
+        } catch (Exception e) {}
     }
 
     private void showSimSelectionDialog() {
@@ -180,35 +284,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void loadPreferences() {
-        switchVoLTE.setChecked(prefs.getBoolean("volte", true));
-        switchVoWiFi.setChecked(prefs.getBoolean("vowifi", true));
-        switchVT.setChecked(prefs.getBoolean("vt", true));
-        switchVoNR.setChecked(prefs.getBoolean("vonr", true));
-        switchCrossSIM.setChecked(prefs.getBoolean("cross_sim", true));
-        switchUT.setChecked(prefs.getBoolean("ut", true));
-        switch5GNR.setChecked(prefs.getBoolean("5g_nr", true));
-        switchSignalOpt.setChecked(prefs.getBoolean("signal_opt", true));
-        switchGpsOpt.setChecked(prefs.getBoolean("gps_opt", true));
-        switchIconOpt.setChecked(prefs.getBoolean("icon_opt", true));
-        switchExtraOpt.setChecked(prefs.getBoolean("extra_opt", true));
-    }
-
-    private void savePreferences() {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("volte", switchVoLTE.isChecked());
-        editor.putBoolean("vowifi", switchVoWiFi.isChecked());
-        editor.putBoolean("vt", switchVT.isChecked());
-        editor.putBoolean("vonr", switchVoNR.isChecked());
-        editor.putBoolean("cross_sim", switchCrossSIM.isChecked());
-        editor.putBoolean("ut", switchUT.isChecked());
-        editor.putBoolean("5g_nr", switch5GNR.isChecked());
-        editor.putBoolean("signal_opt", switchSignalOpt.isChecked());
-        editor.putBoolean("gps_opt", switchGpsOpt.isChecked());
-        editor.putBoolean("icon_opt", switchIconOpt.isChecked());
-        editor.putBoolean("extra_opt", switchExtraOpt.isChecked());
-        editor.apply();
-    }
+    // loadPreferences and savePreferences removed as we use direct overrides now.
 
     private void updateAndroidVersionInfo() {
         String version = String.format(getString(R.string.android_version),
@@ -313,7 +389,7 @@ public class MainActivity extends Activity {
     }
 
     private void applyConfiguration() {
-        savePreferences();
+        // savePreferences(); // Not needed as we save on item click
 
         if (!Shizuku.pingBinder()) {
             Toast.makeText(this, R.string.shizuku_not_running_msg, Toast.LENGTH_LONG).show();
