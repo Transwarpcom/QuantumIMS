@@ -218,7 +218,7 @@ public class MainActivity extends Activity {
             .setTitle(item.key);
 
         if (item instanceof PresetConfigItem) {
-            builder.setTitle(((PresetConfigItem)item).definition.title);
+            builder.setTitle(((PresetConfigItem)item).definition.titleRes);
         }
 
         final EditText input = new EditText(this);

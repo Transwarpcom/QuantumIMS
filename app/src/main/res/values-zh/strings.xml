@@ -17,32 +17,6 @@
 
     <!-- Features -->
     <string name="features_config">功能配置</string>
-    <string name="volte">VoLTE（4G 语音）</string>
-    <string name="volte_desc">启用 4G 高清语音通话</string>
-    <string name="vowifi">VoWiFi（WiFi 通话）</string>
-    <string name="vowifi_desc">启用 WiFi 网络通话</string>
-    <string name="vt">VT（视频通话）</string>
-    <string name="vt_desc">启用视频通话功能</string>
-    <string name="vonr">VoNR（5G 语音）</string>
-    <string name="vonr_desc">启用 5G 高清语音通话</string>
-    <string name="cross_sim">跨 SIM 通话</string>
-    <string name="cross_sim_desc">双卡互通功能</string>
-    <string name="ut">UT 补充服务</string>
-    <string name="ut_desc">呼叫转移、呼叫等待等</string>
-    <string name="_5g_nr">5G NR（NSA/SA）</string>
-    <string name="_5g_nr_desc">启用 5G 网络（非独立/独立组网）</string>
-
-    <string name="signal_opt">信号优化</string>
-    <string name="signal_opt_desc">优化信号显示阈值与切换逻辑</string>
-
-    <string name="gps_opt">GPS 优化</string>
-    <string name="gps_opt_desc">使用 Broadcom PSDS 服务器加速定位</string>
-
-    <string name="icon_opt">图标增强</string>
-    <string name="icon_opt_desc">显示 5G+ 图标与 N78 频段支持</string>
-
-    <string name="extra_opt">额外功能</string>
-    <string name="extra_opt_desc">解锁 APN、短信重试、SA 不计费等</string>
 
     <!-- Button -->
     <string name="apply_config">应用配置</string>
@@ -80,4 +54,69 @@
     <string name="advanced_editor">高级编辑器</string>
     <string name="advanced_config_editor">高级配置编辑器</string>
     <string name="no_sim_active_warning">没有激活的 SIM 卡。请插入 SIM 卡以配置。</string>
+
+    <!-- Config Presets -->
+    <string name="volte_avail_title">VoLTE 可用性</string>
+    <string name="volte_avail_desc">启用 VoLTE</string>
+    <string name="edit_enhanced_4g_title">增强型 4G LTE 编辑</string>
+    <string name="edit_enhanced_4g_desc">允许编辑增强型 4G LTE 开关</string>
+    <string name="hide_enhanced_4g_title">隐藏增强型 4G LTE</string>
+    <string name="hide_enhanced_4g_desc">隐藏增强型 4G LTE 开关</string>
+    <string name="hide_lte_plus_title">隐藏 LTE+ 图标</string>
+    <string name="hide_lte_plus_desc">隐藏 LTE+ 数据图标</string>
+
+    <string name="vowifi_avail_title">VoWiFi 可用性</string>
+    <string name="vowifi_avail_desc">启用 VoWiFi</string>
+    <string name="vowifi_wifi_only_title">VoWiFi 仅 WiFi 模式</string>
+    <string name="vowifi_wifi_only_desc">支持仅 WiFi 模式</string>
+    <string name="edit_wfc_mode_title">WFC 模式编辑</string>
+    <string name="edit_wfc_mode_desc">允许编辑 WFC 模式</string>
+    <string name="edit_wfc_roam_title">WFC 漫游模式编辑</string>
+    <string name="edit_wfc_roam_desc">允许编辑 WFC 漫游模式</string>
+    <string name="show_vowifi_icon_title">显示 VoWiFi 图标</string>
+    <string name="show_vowifi_icon_desc">在状态栏显示图标</string>
+    <string name="wfc_spn_idx_title">WFC SPN 格式索引</string>
+    <string name="wfc_spn_idx_desc">SPN 显示格式索引</string>
+
+    <string name="vt_avail_title">视频通话可用性</string>
+    <string name="vt_avail_desc">启用视频通话</string>
+
+    <string name="vonr_enabled_title">VoNR 已启用</string>
+    <string name="vonr_enabled_desc">启用 5G 语音 (VoNR)</string>
+    <string name="vonr_visibility_title">VoNR 设置可见性</string>
+    <string name="vonr_visibility_desc">显示 VoNR 设置选项</string>
+
+    <string name="nr_avail_title">NR 可用性</string>
+    <string name="nr_avail_desc">NSA/SA 可用性 [1, 2]</string>
+    <string name="nr_thresholds_title">5G NR 信号阈值</string>
+    <string name="nr_thresholds_desc">信号格数阈值</string>
+    <string name="nr_adv_bands_title">高级 NR 频段</string>
+    <string name="nr_adv_bands_desc">5G+ 频段 [41, 78, 79]</string>
+    <string name="unmetered_nr_title">NR SA 不计费</string>
+    <string name="unmetered_nr_desc">将 5G SA 视为不计费流量</string>
+    <string name="nr_icon_config_title">5G 图标配置</string>
+    <string name="nr_icon_config_desc">图标配置字符串</string>
+
+    <string name="qns_timer_title">QNS 切换保护计时器</string>
+    <string name="qns_timer_desc">最小切换计时器 (ms)</string>
+    <string name="qns_rsrp_title">QNS 语音 NR RSRP</string>
+    <string name="qns_rsrp_desc">语音 NR RSRP 阈值</string>
+    <string name="qns_ho_restrict_title">QNS 切换限制时间</string>
+    <string name="qns_ho_restrict_desc">切换限制时间</string>
+
+    <string name="gps_normal_title">GPS 常规 PSDS 服务器</string>
+    <string name="gps_normal_desc">博通 PSDS 服务器 URL</string>
+    <string name="gps_long_title">GPS 长期 PSDS 服务器</string>
+    <string name="gps_long_desc">博通长期 PSDS 服务器 URL</string>
+
+    <string name="sms_retry_title">短信最大重试次数</string>
+    <string name="sms_retry_desc">IMS 短信最大重试次数</string>
+    <string name="apn_expand_title">APN 扩展</string>
+    <string name="apn_expand_desc">解锁 APN 编辑</string>
+    <string name="cross_sim_title">跨 SIM IMS</string>
+    <string name="cross_sim_desc">启用跨 SIM 通话</string>
+    <string name="cross_sim_opp_title">跨 SIM 机会数据</string>
+    <string name="cross_sim_opp_desc">在机会数据上启用</string>
+    <string name="ss_over_ut_title">UT 补充服务</string>
+    <string name="ss_over_ut_desc">启用基于 UT 的补充服务</string>
 </resources>

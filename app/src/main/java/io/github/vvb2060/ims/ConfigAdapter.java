@@ -66,8 +66,8 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
 
         if (item instanceof MainActivity.PresetConfigItem) {
             MainActivity.PresetConfigItem preset = (MainActivity.PresetConfigItem) item;
-            holder.textKey.setText(preset.definition.title);
-            holder.textValue.setText(preset.definition.description);
+            holder.textKey.setText(preset.definition.titleRes);
+            holder.textValue.setText(preset.definition.descRes);
             if (holder.icon != null) {
                 holder.icon.setVisibility(View.VISIBLE);
                 holder.icon.setImageResource(preset.definition.iconRes);
@@ -89,7 +89,7 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
             } else {
                 if (holder.toggle != null) holder.toggle.setVisibility(View.GONE);
                 // Show current value for non-boolean?
-                holder.textValue.setText(preset.definition.description + "\nValue: " + item.getValueString());
+                holder.textValue.setText(context.getString(preset.definition.descRes) + "\nValue: " + item.getValueString());
             }
         } else {
             // Standard/Advanced mode
