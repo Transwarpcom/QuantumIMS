@@ -1,13 +1,13 @@
-# Turbo IMS
+# Quantum IMS
 
 <div align="center">
-  <img src="Turboims.png" width="200" alt="Turbo IMS Logo"/>
+  <img src="Turboims.png" width="200" alt="Quantum IMS Logo"/>
 
   <h3>Enhanced IMS Configuration Tool for Google Pixel Devices</h3>
 
   [![Android](https://img.shields.io/badge/Android-14%2B-green.svg)](https://www.android.com/)
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-  [![Version](https://img.shields.io/badge/Version-3.1-brightgreen.svg)](https://github.com/Transwarpcom/TurboIMS/releases)
+  [![Version](https://img.shields.io/badge/Version-3.1-brightgreen.svg)](https://github.com/Transwarpcom/QuantumIMS/releases)
 
   English | [简体中文](README_CN.md)
 </div>
@@ -16,11 +16,11 @@
 
 ## 📱 About
 
-**Turbo IMS** is an enhanced fork of the original [IMS project by vvb2060](https://github.com/vvb2060/Ims), designed to enable VoLTE, VoWiFi, VoNR, and other advanced IMS features on Google Pixel phones through privileged system configuration.
+**Quantum IMS** is an enhanced fork of the original [IMS project by vvb2060](https://github.com/vvb2060/Ims), designed to enable VoLTE, VoWiFi, VoNR, and other advanced IMS features on Google Pixel phones through privileged system configuration.
 
 This enhanced version includes a modernized UI, improved user experience, automatic language detection, and additional convenience features while maintaining full compatibility with the original implementation.
 
-## ✨ New Features in Turbo IMS
+## ✨ New Features in Quantum IMS
 
 ### 🎨 **Modern UI Redesign**
 - Professional logo and branding
@@ -65,20 +65,20 @@ This enhanced version includes a modernized UI, improved user experience, automa
 - Google Pixel device (tested on Pixel 6+)
 - Android 14 or higher
 - [Shizuku](https://github.com/RikkaApps/Shizuku) installed and running
-- Shizuku permission granted to Turbo IMS
+- Shizuku permission granted to Quantum IMS
 
 ## 🚀 Installation
 
 ### Method 1: Download APK (Recommended)
-1. Download the latest APK from [Releases](https://github.com/Transwarpcom/TurboIMS/releases)
+1. Download the latest APK from [Releases](https://github.com/Transwarpcom/QuantumIMS/releases)
 2. Install the APK on your Pixel device
 3. Grant necessary permissions
 
 ### Method 2: Build from Source
 ```bash
 # Clone the repository
-git clone https://github.com/Transwarpcom/TurboIMS.git
-cd TurboIMS
+git clone https://github.com/Transwarpcom/QuantumIMS.git
+cd QuantumIMS
 
 # Build debug APK
 ./gradlew assembleDebug
@@ -95,7 +95,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
    - Start Shizuku service (via Wireless debugging or Root)
 
 2. **Grant Permissions**
-   - Open Turbo IMS
+   - Open Quantum IMS
    - Grant Shizuku permission when prompted
 
 ### Configuring IMS Features
@@ -156,7 +156,7 @@ The app modifies the following carrier configuration keys:
 - And many more... (see source code for complete list)
 
 ### Package Details
-- **Package Name**: `io.github.turboims.pixel`
+- **Package Name**: `io.github.quantumims.pixel`
 - **Min SDK**: Android 14 (API 34)
 - **Target SDK**: Android 15 (API 35)
 - **Version**: 3.0 (Build 5)
@@ -182,7 +182,7 @@ If you find this tool useful, please consider starring both this repository and 
 ## 📄 License
 
 ```
-Copyright 2024 Turbo IMS Contributors
+Copyright 2024 Quantum IMS Contributors
 Copyright 2023 vvb2060 (Original IMS Project)
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -209,7 +209,7 @@ limitations under the License.
 ## 🐛 Issues & Support
 
 If you encounter any issues or have feature requests:
-1. Check [existing issues](https://github.com/Transwarpcom/TurboIMS/issues)
+1. Check [existing issues](https://github.com/Transwarpcom/QuantumIMS/issues)
 2. Create a new issue with detailed information:
    - Device model
    - Android version

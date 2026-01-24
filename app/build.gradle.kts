@@ -5,7 +5,7 @@ plugins {
 android {
     namespace = "io.github.vvb2060.ims"
     defaultConfig {
-        applicationId = "io.github.turboims.pixel"
+        applicationId = "io.github.quantumims.pixel"
         versionCode = project.findProperty("ciVersionCode")?.toString()?.toInt() ?: 6
         versionName = project.findProperty("ciVersionName")?.toString() ?: "3.1"
     }
