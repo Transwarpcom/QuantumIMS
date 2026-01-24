@@ -77,4 +77,6 @@
     <string name="go_to_network_settings">Go to Network Settings</string>
     <string name="config_success_message">Configuration applied successfully! Would you like to go to network settings?</string>
     <string name="later">Later</string>
+    <string name="advanced_editor">Advanced Editor</string>
+    <string name="advanced_config_editor">Advanced Config Editor</string>
 </resources>

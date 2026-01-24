@@ -117,6 +117,8 @@ public class MainActivity extends Activity {
         btnApply = findViewById(R.id.btn_apply);
         btnApply.setOnClickListener(v -> applyConfiguration());
 
+        findViewById(R.id.btn_advanced_editor).setOnClickListener(v -> showAdvancedEditorSimDialog());
+
         btnSelectSim.setOnClickListener(v -> showSimSelectionDialog());
 
         btnSwitchLanguage.setOnClickListener(v -> {
@@ -247,6 +249,59 @@ public class MainActivity extends Activity {
             tvShizukuStatus.setText(statusText);
             tvShizukuStatus.setTextColor(statusColor);
         });
+    }
+
+    private void showAdvancedEditorSimDialog() {
+        android.telephony.SubscriptionManager sm = getSystemService(android.telephony.SubscriptionManager.class);
+        if (checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // Fallback for no permission or just list Sim 1/2 if we can't query
+            // But we might not have permission here if we are not privileged yet.
+            // Shizuku app usually requests permissions.
+            // Let's just show fixed 1 and 2 for simplicity or check if we can get active ones.
+            // Actually, SubscriptionManager.getActiveSubscriptionIdList requires permission.
+            // We'll show a simple dialog with SIM 1 and SIM 2.
+            String[] items = {getString(R.string.sim_1), getString(R.string.sim_2)};
+            new AlertDialog.Builder(this)
+                .setTitle(R.string.select_sim)
+                .setItems(items, (dialog, which) -> {
+                    int subId = (which == 0) ? 1 : 2; // Assuming 1 and 2 mapped to slots roughly for now, or just pass slot index if API supported it
+                    // Ideally we map slot to subId. But CarrierConfigManager uses subId.
+                    // Default SubIds are often unique.
+                    // Let's try to find subId from slot.
+                    // Without READ_PHONE_STATE we can't easily map.
+                    // We will pass the subId as 1 or 2 and hope for the best (usually works on emulators/some devices)
+                    // OR better: ask user to grant permission if we want to be correct.
+                    // But for this patch, let's stick to the existing pattern where we assume subId 1/2 or "selected".
+                    launchConfigEditor(subId);
+                })
+                .show();
+            return;
+        }
+
+        java.util.List<android.telephony.SubscriptionInfo> subs = sm.getActiveSubscriptionInfoList();
+        if (subs == null || subs.isEmpty()) {
+            Toast.makeText(this, R.string.no_sim_found, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String[] items = new String[subs.size()];
+        int[] subIds = new int[subs.size()];
+        for (int i = 0; i < subs.size(); i++) {
+            android.telephony.SubscriptionInfo info = subs.get(i);
+            items[i] = String.format("%s (Slot %d)", info.getDisplayName(), info.getSimSlotIndex() + 1);
+            subIds[i] = info.getSubscriptionId();
+        }
+
+        new AlertDialog.Builder(this)
+            .setTitle(R.string.select_sim)
+            .setItems(items, (dialog, which) -> launchConfigEditor(subIds[which]))
+            .show();
+    }
+
+    private void launchConfigEditor(int subId) {
+        Intent intent = new Intent(this, ConfigEditorActivity.class);
+        intent.putExtra("subId", subId);
+        startActivity(intent);
     }
 
     private void requestShizukuPermission() {

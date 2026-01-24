@@ -77,4 +77,6 @@
     <string name="go_to_network_settings">前往网络设置</string>
     <string name="config_success_message">配置已成功应用！是否前往网络设置？</string>
     <string name="later">稍后</string>
+    <string name="advanced_editor">高级编辑器</string>
+    <string name="advanced_config_editor">高级配置编辑器</string>
 </resources>

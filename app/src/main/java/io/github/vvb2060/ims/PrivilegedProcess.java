@@ -13,11 +13,15 @@ import android.telephony.CarrierConfigManager;
 import android.telephony.SubscriptionManager;
 import android.util.Log;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import rikka.shizuku.ShizukuBinderWrapper;
 
 public class PrivilegedProcess extends Instrumentation {
 
     private static final String PREFS_NAME = "ims_config";
+    private static final String CUSTOM_OVERRIDES_KEY = "custom_overrides";
 
     @Override
     public void onCreate(Bundle arguments) {
@@ -202,6 +206,56 @@ public class PrivilegedProcess extends Instrumentation {
         // 5G SA Unmetered
         bundle.putBoolean("unmetered_nr_sa_bool", enableExtraOpt);
 
+        // Apply custom overrides
+        applyCustomOverrides(context, bundle);
+
         return bundle;
+    }
+
+    private static void applyCustomOverrides(Context context, PersistableBundle bundle) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String json = prefs.getString(CUSTOM_OVERRIDES_KEY, "{}");
+        try {
+            JSONObject overrides = new JSONObject(json);
+            java.util.Iterator<String> keys = overrides.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                Object value = overrides.get(key);
+                if (value instanceof Boolean) {
+                    bundle.putBoolean(key, (Boolean) value);
+                } else if (value instanceof Integer) {
+                    bundle.putInt(key, (Integer) value);
+                } else if (value instanceof Long) {
+                    bundle.putLong(key, (Long) value);
+                } else if (value instanceof Double) {
+                    bundle.putDouble(key, (Double) value);
+                } else if (value instanceof String) {
+                    bundle.putString(key, (String) value);
+                } else if (value instanceof JSONArray) {
+                    JSONArray array = (JSONArray) value;
+                    if (array.length() > 0) {
+                        Object first = array.get(0);
+                        if (first instanceof Integer) {
+                            int[] intArray = new int[array.length()];
+                            for (int i = 0; i < array.length(); i++) {
+                                intArray[i] = array.getInt(i);
+                            }
+                            bundle.putIntArray(key, intArray);
+                        } else if (first instanceof String) {
+                            String[] stringArray = new String[array.length()];
+                            for (int i = 0; i < array.length(); i++) {
+                                stringArray[i] = array.getString(i);
+                            }
+                            bundle.putStringArray(key, stringArray);
+                        }
+                    } else {
+                        // Empty array default to int array as most common
+                        bundle.putIntArray(key, new int[0]);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            Log.e("PrivilegedProcess", "Failed to apply custom overrides", e);
+        }
     }
 }
