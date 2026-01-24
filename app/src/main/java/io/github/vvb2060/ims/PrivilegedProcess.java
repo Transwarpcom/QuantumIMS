@@ -3,6 +3,7 @@ package io.github.vvb2060.ims;
 import android.app.IActivityManager;
 import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -36,12 +37,20 @@ public class PrivilegedProcess extends Instrumentation {
             }
         }
 
+        boolean success = false;
         try {
             overrideConfig();
             Log.i("PrivilegedProcess", "overrideConfig completed successfully");
+            success = true;
         } catch (Exception e) {
             Log.e("PrivilegedProcess", "Failed to override config", e);
         }
+
+        Intent intent = new Intent(getTargetContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("config_applied", success);
+        getTargetContext().startActivity(intent);
+
         finish(0, new Bundle());
     }
 
