@@ -1,13 +1,13 @@
-# Turbo IMS
+# Quantum IMS
 
 <div align="center">
-  <img src="Turboims.png" width="200" alt="Turbo IMS Logo"/>
+  <img src="Turboims.png" width="200" alt="Quantum IMS Logo"/>
 
   <h3>Google Pixel 设备增强版 IMS 配置工具</h3>
 
   [![Android](https://img.shields.io/badge/Android-14%2B-green.svg)](https://www.android.com/)
   [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
-  [![Version](https://img.shields.io/badge/Version-3.1-brightgreen.svg)](https://github.com/Transwarpcom/TurboIMS/releases)
+  [![Version](https://img.shields.io/badge/Version-3.1-brightgreen.svg)](https://github.com/Transwarpcom/QuantumIMS/releases)
 
   [English](README.md) | 简体中文
 </div>
@@ -16,11 +16,11 @@
 
 ## 📱 关于项目
 
-**Turbo IMS** 是 [vvb2060 的 IMS 项目](https://github.com/vvb2060/Ims) 的增强版分支，专为 Google Pixel 手机设计，通过系统级权限配置启用 VoLTE、VoWiFi、VoNR 等高级 IMS 功能。
+**Quantum IMS** 是 [vvb2060 的 IMS 项目](https://github.com/vvb2060/Ims) 的增强版分支，专为 Google Pixel 手机设计，通过系统级权限配置启用 VoLTE、VoWiFi、VoNR 等高级 IMS 功能。
 
 这个增强版本在保持与原版完全兼容的同时，提供了现代化的用户界面、改进的用户体验、自动语言检测以及更多便利功能。
 
-## ✨ Turbo IMS 新增功能
+## ✨ Quantum IMS 新增功能
 
 ### 🎨 **现代化 UI 重设计**
 - 专业的 Logo 和品牌形象
@@ -65,20 +65,20 @@
 - Google Pixel 设备（在 Pixel 6+ 上测试通过）
 - Android 14 或更高版本
 - 已安装并运行 [Shizuku](https://github.com/RikkaApps/Shizuku)
-- 已授予 Turbo IMS Shizuku 权限
+- 已授予 Quantum IMS Shizuku 权限
 
 ## 🚀 安装方法
 
 ### 方法 1：下载 APK（推荐）
-1. 从 [Releases](https://github.com/Transwarpcom/TurboIMS/releases) 下载最新 APK
+1. 从 [Releases](https://github.com/Transwarpcom/QuantumIMS/releases) 下载最新 APK
 2. 在你的 Pixel 设备上安装 APK
 3. 授予必要的权限
 
 ### 方法 2：从源码构建
 ```bash
 # 克隆仓库
-git clone https://github.com/Transwarpcom/TurboIMS.git
-cd TurboIMS
+git clone https://github.com/Transwarpcom/QuantumIMS.git
+cd QuantumIMS
 
 # 构建 debug APK
 ./gradlew assembleDebug
@@ -96,7 +96,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
    - 启动 Shizuku 服务（通过无线调试或 Root）
 
 2. **授予权限**
-   - 打开 Turbo IMS
+   - 打开 Quantum IMS
    - 在提示时授予 Shizuku 权限
 
 ### 配置 IMS 功能
@@ -157,7 +157,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 - 还有更多...（完整列表请查看源代码）
 
 ### 包详情
-- **包名**：`io.github.turboims.pixel`
+- **包名**：`io.github.quantumims.pixel`
 - **最低 SDK**：Android 14 (API 34)
 - **目标 SDK**：Android 15 (API 35)
 - **版本**：3.0 (Build 5)
@@ -183,7 +183,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 ## 📄 许可证
 
 ```
-Copyright 2024 Turbo IMS Contributors
+Copyright 2024 Quantum IMS Contributors
 Copyright 2023 vvb2060 (Original IMS Project)
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -210,7 +210,7 @@ limitations under the License.
 ## 🐛 问题反馈与支持
 
 如果你遇到任何问题或有功能请求：
-1. 查看 [现有 Issues](https://github.com/Transwarpcom/TurboIMS/issues)
+1. 查看 [现有 Issues](https://github.com/Transwarpcom/QuantumIMS/issues)
 2. 创建新 Issue 并提供详细信息：
    - 设备型号
    - Android 版本
