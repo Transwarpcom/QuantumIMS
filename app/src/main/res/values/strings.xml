@@ -79,4 +79,5 @@
     <string name="later">Later</string>
     <string name="advanced_editor">Advanced Editor</string>
     <string name="advanced_config_editor">Advanced Config Editor</string>
+    <string name="no_sim_active_warning">No active SIM card found. Please insert a SIM card to configure.</string>
 </resources>

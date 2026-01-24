@@ -79,4 +79,5 @@
     <string name="later">稍后</string>
     <string name="advanced_editor">高级编辑器</string>
     <string name="advanced_config_editor">高级配置编辑器</string>
+    <string name="no_sim_active_warning">没有激活的 SIM 卡。请插入 SIM 卡以配置。</string>
 </resources>

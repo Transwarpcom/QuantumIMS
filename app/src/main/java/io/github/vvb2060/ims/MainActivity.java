@@ -72,6 +72,37 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        checkActiveSims();
+    }
+
+    private void checkActiveSims() {
+        if (checkSelfPermission(android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // Can't check without permission, assume at least one might be there or user will find out
+            return;
+        }
+        android.telephony.SubscriptionManager sm = getSystemService(android.telephony.SubscriptionManager.class);
+        int count = sm.getActiveSubscriptionInfoCount();
+        if (count == 0) {
+            new AlertDialog.Builder(this)
+                .setTitle(R.string.sim_card)
+                .setMessage(R.string.no_sim_active_warning)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+            // Could disable buttons here
+            btnApply.setEnabled(false);
+            btnSelectSim.setEnabled(false);
+            findViewById(R.id.btn_advanced_editor).setEnabled(false);
+        } else {
+            // Re-enable if previously disabled, but only if Shizuku is ready (handled by updateShizukuStatus)
+            updateShizukuStatus();
+            btnSelectSim.setEnabled(true);
+            findViewById(R.id.btn_advanced_editor).setEnabled(true);
+        }
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Shizuku.removeBinderReceivedListener(binderListener);
@@ -364,7 +395,12 @@ public class MainActivity extends Activity {
         int[] subIds = new int[subs.size()];
         for (int i = 0; i < subs.size(); i++) {
             android.telephony.SubscriptionInfo info = subs.get(i);
-            items[i] = String.format("%s (Slot %d)", info.getDisplayName(), info.getSimSlotIndex() + 1);
+            // Use DisplayName which usually contains Carrier Name. Fallback to carrier name if needed.
+            CharSequence carrierName = info.getDisplayName();
+            if (carrierName == null || carrierName.length() == 0) {
+                carrierName = info.getCarrierName();
+            }
+            items[i] = String.format("%s (Slot %d)", carrierName, info.getSimSlotIndex() + 1);
             subIds[i] = info.getSubscriptionId();
         }
 
