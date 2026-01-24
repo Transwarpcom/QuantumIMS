@@ -101,61 +101,18 @@ public class MainActivity extends Activity {
         switchIconOpt = findViewById(R.id.item_icon_opt).findViewById(R.id.feature_switch);
         switchExtraOpt = findViewById(R.id.item_extra_opt).findViewById(R.id.feature_switch);
 
-        // Set feature titles and descriptions
-        ((TextView) findViewById(R.id.item_volte).findViewById(R.id.feature_title))
-            .setText(R.string.volte);
-        ((TextView) findViewById(R.id.item_volte).findViewById(R.id.feature_desc))
-            .setText(R.string.volte_desc);
-
-        ((TextView) findViewById(R.id.item_vowifi).findViewById(R.id.feature_title))
-            .setText(R.string.vowifi);
-        ((TextView) findViewById(R.id.item_vowifi).findViewById(R.id.feature_desc))
-            .setText(R.string.vowifi_desc);
-
-        ((TextView) findViewById(R.id.item_vt).findViewById(R.id.feature_title))
-            .setText(R.string.vt);
-        ((TextView) findViewById(R.id.item_vt).findViewById(R.id.feature_desc))
-            .setText(R.string.vt_desc);
-
-        ((TextView) findViewById(R.id.item_vonr).findViewById(R.id.feature_title))
-            .setText(R.string.vonr);
-        ((TextView) findViewById(R.id.item_vonr).findViewById(R.id.feature_desc))
-            .setText(R.string.vonr_desc);
-
-        ((TextView) findViewById(R.id.item_cross_sim).findViewById(R.id.feature_title))
-            .setText(R.string.cross_sim);
-        ((TextView) findViewById(R.id.item_cross_sim).findViewById(R.id.feature_desc))
-            .setText(R.string.cross_sim_desc);
-
-        ((TextView) findViewById(R.id.item_ut).findViewById(R.id.feature_title))
-            .setText(R.string.ut);
-        ((TextView) findViewById(R.id.item_ut).findViewById(R.id.feature_desc))
-            .setText(R.string.ut_desc);
-
-        ((TextView) findViewById(R.id.item_5g_nr).findViewById(R.id.feature_title))
-            .setText(R.string._5g_nr);
-        ((TextView) findViewById(R.id.item_5g_nr).findViewById(R.id.feature_desc))
-            .setText(R.string._5g_nr_desc);
-
-        ((TextView) findViewById(R.id.item_signal_opt).findViewById(R.id.feature_title))
-            .setText(R.string.signal_opt);
-        ((TextView) findViewById(R.id.item_signal_opt).findViewById(R.id.feature_desc))
-            .setText(R.string.signal_opt_desc);
-
-        ((TextView) findViewById(R.id.item_gps_opt).findViewById(R.id.feature_title))
-            .setText(R.string.gps_opt);
-        ((TextView) findViewById(R.id.item_gps_opt).findViewById(R.id.feature_desc))
-            .setText(R.string.gps_opt_desc);
-
-        ((TextView) findViewById(R.id.item_icon_opt).findViewById(R.id.feature_title))
-            .setText(R.string.icon_opt);
-        ((TextView) findViewById(R.id.item_icon_opt).findViewById(R.id.feature_desc))
-            .setText(R.string.icon_opt_desc);
-
-        ((TextView) findViewById(R.id.item_extra_opt).findViewById(R.id.feature_title))
-            .setText(R.string.extra_opt);
-        ((TextView) findViewById(R.id.item_extra_opt).findViewById(R.id.feature_desc))
-            .setText(R.string.extra_opt_desc);
+        // Set feature titles, descriptions and icons
+        setupFeatureItem(R.id.item_volte, R.string.volte, R.string.volte_desc, R.drawable.ic_volte);
+        setupFeatureItem(R.id.item_vowifi, R.string.vowifi, R.string.vowifi_desc, R.drawable.ic_vowifi);
+        setupFeatureItem(R.id.item_vt, R.string.vt, R.string.vt_desc, R.drawable.ic_vt);
+        setupFeatureItem(R.id.item_vonr, R.string.vonr, R.string.vonr_desc, R.drawable.ic_5g);
+        setupFeatureItem(R.id.item_cross_sim, R.string.cross_sim, R.string.cross_sim_desc, R.drawable.ic_sim);
+        setupFeatureItem(R.id.item_ut, R.string.ut, R.string.ut_desc, R.drawable.ic_settings);
+        setupFeatureItem(R.id.item_5g_nr, R.string._5g_nr, R.string._5g_nr_desc, R.drawable.ic_5g);
+        setupFeatureItem(R.id.item_signal_opt, R.string.signal_opt, R.string.signal_opt_desc, R.drawable.ic_signal);
+        setupFeatureItem(R.id.item_gps_opt, R.string.gps_opt, R.string.gps_opt_desc, R.drawable.ic_gps);
+        setupFeatureItem(R.id.item_icon_opt, R.string.icon_opt, R.string.icon_opt_desc, R.drawable.ic_info);
+        setupFeatureItem(R.id.item_extra_opt, R.string.extra_opt, R.string.extra_opt_desc, R.drawable.ic_settings);
 
         btnApply = findViewById(R.id.btn_apply);
         btnApply.setOnClickListener(v -> applyConfiguration());
@@ -166,6 +123,13 @@ public class MainActivity extends Activity {
             LocaleHelper.toggleLanguage(this);
             recreate(); // 重新创建 Activity 以应用新语言
         });
+    }
+
+    private void setupFeatureItem(int itemId, int titleRes, int descRes, int iconRes) {
+        View item = findViewById(itemId);
+        ((TextView) item.findViewById(R.id.feature_title)).setText(titleRes);
+        ((TextView) item.findViewById(R.id.feature_desc)).setText(descRes);
+        ((android.widget.ImageView) item.findViewById(R.id.feature_icon)).setImageResource(iconRes);
     }
 
     private void showSimSelectionDialog() {
