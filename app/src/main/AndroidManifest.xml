@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:label="Turbo IMS"
+        android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/Theme.TurboIMS">
 
@@ -20,7 +20,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="Turbo IMS" />
+            android:label="@string/title" />
 
         <provider
             android:name=".ShizukuProvider"

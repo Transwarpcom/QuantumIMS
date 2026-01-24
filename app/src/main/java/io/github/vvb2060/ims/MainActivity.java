@@ -67,6 +67,10 @@ public class MainActivity extends Activity {
 
         Shizuku.addBinderReceivedListener(binderListener);
         Shizuku.addBinderDeadListener(binderDeadListener);
+
+        if (getIntent().getBooleanExtra("config_applied", false)) {
+            showNetworkSettingsDialog();
+        }
     }
 
     @Override
@@ -308,24 +312,6 @@ public class MainActivity extends Activity {
 
         // 使用原版的 Instrumentation 方式
         ShizukuProvider.startInstrument(this);
-
-        // Instrumentation 会导致应用退到后台，延迟后重新启动以显示结果
-        new Thread(() -> {
-            try {
-                Thread.sleep(3000); // 等待配置完成
-                runOnUiThread(() -> {
-                    // 重新启动 MainActivity
-                    Intent intent = new Intent(this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    startActivity(intent);
-
-                    // 显示成功对话框，提供跳转到网络设置的选项
-                    showNetworkSettingsDialog();
-                });
-            } catch (InterruptedException e) {
-                // Ignore
-            }
-        }).start();
     }
 
     private void showNetworkSettingsDialog() {

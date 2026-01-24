@@ -6,8 +6,8 @@ android {
     namespace = "io.github.vvb2060.ims"
     defaultConfig {
         applicationId = "io.github.turboims.pixel"
-        versionCode = 6
-        versionName = "3.1"
+        versionCode = project.findProperty("ciVersionCode")?.toString()?.toInt() ?: 6
+        versionName = project.findProperty("ciVersionName")?.toString() ?: "3.1"
     }
     signingConfigs {
         create("release") {

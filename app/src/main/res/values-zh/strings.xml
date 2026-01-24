@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Turbo IMS</string>
+    <string name="app_name">Quantum IMS</string>
     <string name="for_pixel">for Pixel</string>
 
     <!-- Main Screen -->
-    <string name="title">Turbo IMS 配置</string>
+    <string name="title">Quantum IMS 配置</string>
     <string name="system_info">系统信息</string>
     <string name="android_version">Android 版本：%s</string>
     <string name="shizuku_status">Shizuku 状态：%s</string>
