@@ -119,4 +119,50 @@
     <string name="cross_sim_opp_desc">在机会数据上启用</string>
     <string name="ss_over_ut_title">UT 补充服务</string>
     <string name="ss_over_ut_desc">启用基于 UT 的补充服务</string>
+
+    <!-- New Configs -->
+    <string name="qns_idle_rsrp_title">QNS 空闲 NR RSRP</string>
+    <string name="qns_idle_rsrp_desc">空闲 NR RSRP 阈值</string>
+    <string name="qns_voice_wifi_title">QNS 语音 WiFi RSSI</string>
+    <string name="qns_voice_wifi_desc">语音 WiFi RSSI 阈值</string>
+    <string name="qns_idle_wifi_title">QNS 空闲 WiFi RSSI</string>
+    <string name="qns_idle_wifi_desc">空闲 WiFi RSSI 阈值</string>
+
+    <string name="unmetered_nr_nsa_title">NR NSA 不计费</string>
+    <string name="unmetered_nr_nsa_desc">将 5G NSA 视为不计费流量</string>
+    <string name="unmetered_nr_nsa_mmwave_title">NR NSA 毫米波不计费</string>
+    <string name="unmetered_nr_nsa_mmwave_desc">将 5G NSA 毫米波视为不计费流量</string>
+    <string name="unmetered_nr_sa_mmwave_title">NR SA 毫米波不计费</string>
+    <string name="unmetered_nr_sa_mmwave_desc">将 5G SA 毫米波视为不计费流量</string>
+    <string name="tcp_buffers_title">TCP 缓冲区大小</string>
+    <string name="tcp_buffers_desc">自定义 TCP 缓冲区大小配置</string>
+
+    <string name="show_4g_icon_title">LTE 显示 4G 图标</string>
+    <string name="show_4g_icon_desc">LTE 网络下显示 4G 图标</string>
+    <string name="lte_thresholds_title">LTE 信号阈值</string>
+    <string name="lte_thresholds_desc">LTE 信号格数阈值</string>
+    <string name="nr_ssrsq_thresholds_title">5G NR SSRSQ 阈值</string>
+    <string name="nr_ssrsq_thresholds_desc">5G NR 信号质量阈值</string>
+
+    <string name="gps_realtime_title">GPS 实时 PSDS 服务器</string>
+    <string name="gps_realtime_desc">博通实时 PSDS 服务器 URL</string>
+
+    <string name="rcs_provisioning_title">需要 RCS 配置</string>
+    <string name="rcs_provisioning_desc">运营商 RCS 配置要求</string>
+    <string name="ignore_data_changed_title">视频通话忽略数据变化</string>
+    <string name="ignore_data_changed_desc">视频通话期间忽略数据开关变化</string>
+
+    <!-- Headers -->
+    <string name="header_5g_network">5G / 网络</string>
+    <string name="header_voice">VoLTE / VoNR / 语音</string>
+    <string name="header_signal">信号 / QNS</string>
+    <string name="header_ui">界面 / 图标</string>
+    <string name="header_gps">GPS</string>
+    <string name="header_advanced">高级 / 其他</string>
+
+    <!-- Virtual Keys -->
+    <string name="remove_qns_ho_title">移除 QNS 切换限制</string>
+    <string name="remove_qns_ho_desc">移除低 RTP 质量时的 QNS 切换限制时间</string>
+    <string name="remove_apn_readonly_title">移除 APN 只读限制</string>
+    <string name="remove_apn_readonly_desc">允许编辑 APN 字段和类型</string>
 </resources>

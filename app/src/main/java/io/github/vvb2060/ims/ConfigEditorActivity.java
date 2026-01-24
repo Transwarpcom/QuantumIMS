@@ -54,6 +54,11 @@ public class ConfigEditorActivity extends AppCompatActivity {
             } else {
                 bundle = cm.getConfig();
             }
+        } catch (SecurityException e) {
+            // Permission denied
+            android.widget.Toast.makeText(this, "Access denied: " + e.getMessage(), android.widget.Toast.LENGTH_LONG).show();
+            // Fallback: try to just create an empty list so it doesn't crash?
+            // Or maybe just return?
         } catch (Exception e) {
             e.printStackTrace();
         }

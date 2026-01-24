@@ -119,4 +119,50 @@
     <string name="cross_sim_opp_desc">Enable on opportunistic data</string>
     <string name="ss_over_ut_title">SS Over UT</string>
     <string name="ss_over_ut_desc">Enable Supplementary Services over UT</string>
+
+    <!-- New Configs -->
+    <string name="qns_idle_rsrp_title">QNS Idle NR RSRP</string>
+    <string name="qns_idle_rsrp_desc">Idle NR RSRP Thresholds</string>
+    <string name="qns_voice_wifi_title">QNS Voice WiFi RSSI</string>
+    <string name="qns_voice_wifi_desc">Voice WiFi RSSI Thresholds</string>
+    <string name="qns_idle_wifi_title">QNS Idle WiFi RSSI</string>
+    <string name="qns_idle_wifi_desc">Idle WiFi RSSI Thresholds</string>
+
+    <string name="unmetered_nr_nsa_title">Unmetered NR NSA</string>
+    <string name="unmetered_nr_nsa_desc">Treat 5G NSA as unmetered</string>
+    <string name="unmetered_nr_nsa_mmwave_title">Unmetered NR NSA mmWave</string>
+    <string name="unmetered_nr_nsa_mmwave_desc">Treat 5G NSA mmWave as unmetered</string>
+    <string name="unmetered_nr_sa_mmwave_title">Unmetered NR SA mmWave</string>
+    <string name="unmetered_nr_sa_mmwave_desc">Treat 5G SA mmWave as unmetered</string>
+    <string name="tcp_buffers_title">TCP Buffer Sizes</string>
+    <string name="tcp_buffers_desc">Custom TCP buffer sizes string</string>
+
+    <string name="show_4g_icon_title">Show 4G Icon for LTE</string>
+    <string name="show_4g_icon_desc">Display 4G icon when on LTE</string>
+    <string name="lte_thresholds_title">LTE Signal Thresholds</string>
+    <string name="lte_thresholds_desc">Signal bar thresholds for LTE</string>
+    <string name="nr_ssrsq_thresholds_title">5G NR SSRSQ Thresholds</string>
+    <string name="nr_ssrsq_thresholds_desc">Quality thresholds for 5G NR</string>
+
+    <string name="gps_realtime_title">GPS Realtime PSDS Server</string>
+    <string name="gps_realtime_desc">Broadcom Realtime PSDS Server URL</string>
+
+    <string name="rcs_provisioning_title">RCS Provisioning Required</string>
+    <string name="rcs_provisioning_desc">Carrier RCS provisioning requirement</string>
+    <string name="ignore_data_changed_title">Ignore Data Change for Video</string>
+    <string name="ignore_data_changed_desc">Ignore data enabled change during video call</string>
+
+    <!-- Headers -->
+    <string name="header_5g_network">5G / Network</string>
+    <string name="header_voice">VoLTE / VoNR / Voice</string>
+    <string name="header_signal">Signal / QNS</string>
+    <string name="header_ui">UI / Icons</string>
+    <string name="header_gps">GPS</string>
+    <string name="header_advanced">Advanced / Misc</string>
+
+    <!-- Virtual Keys -->
+    <string name="remove_qns_ho_title">Remove QNS HO Restrict</string>
+    <string name="remove_qns_ho_desc">Remove QNS HO restrict time with low RTP quality</string>
+    <string name="remove_apn_readonly_title">Remove APN Read-Only</string>
+    <string name="remove_apn_readonly_desc">Allow editing APN fields and types</string>
 </resources>

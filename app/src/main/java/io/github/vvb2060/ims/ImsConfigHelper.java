@@ -29,29 +29,29 @@ public class ImsConfigHelper {
         am.startDelegateShellPermissionIdentity(Os.getuid(), null);
 
         try {
-            SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-            boolean enableVoLTE = prefs.getBoolean("volte", true);
-            boolean enableVoWiFi = prefs.getBoolean("vowifi", true);
-            boolean enableVT = prefs.getBoolean("vt", true);
-            boolean enableVoNR = prefs.getBoolean("vonr", true);
-            boolean enableCrossSIM = prefs.getBoolean("cross_sim", true);
-            boolean enableUT = prefs.getBoolean("ut", true);
-            boolean enable5GNR = prefs.getBoolean("5g_nr", true);
-            boolean enableSignalOpt = prefs.getBoolean("signal_opt", true);
-            boolean enableGpsOpt = prefs.getBoolean("gps_opt", true);
-            boolean enableIconOpt = prefs.getBoolean("icon_opt", true);
-            boolean enableExtraOpt = prefs.getBoolean("extra_opt", true);
-
             var cm = context.getSystemService(CarrierConfigManager.class);
             var values = new PersistableBundle();
 
             // Apply Presets
             for (ConfigDefinition def : PresetConfigs.getPresets()) {
+                if (def.isHeader) continue;
                 applyConfigItem(values, def.key, def.defaultValue);
             }
 
-            // Apply Overrides
+            // Apply Overrides (Includes virtual keys)
             applyCustomOverrides(context, values);
+
+            // Handle Virtual Keys Logic
+            if (values.getBoolean("virtual.remove_apn_readonly", false)) {
+                values.putStringArray("read_only_apn_types_string_array", null);
+                values.putStringArray("read_only_apn_fields_string_array", null);
+                // Clean up virtual key so it's not sent to CarrierConfig (though extra keys usually ignored)
+                values.putBoolean("virtual.remove_apn_readonly", false); // Just in case
+            }
+            if (values.getBoolean("virtual.remove_qns_ho_restrict", false)) {
+                values.putIntArray("qns.ho_restrict_time_with_low_rtp_quality_int_array", null);
+                 values.putBoolean("virtual.remove_qns_ho_restrict", false);
+            }
 
             var bundle = cm.getConfigForSubId(subId, "vvb2060_config_version");
             if (bundle.getInt("vvb2060_config_version", 0) != BuildConfig.VERSION_CODE) {

@@ -6,6 +6,7 @@ public class ConfigDefinition {
     public int descRes;
     public int iconRes;
     public Object defaultValue;
+    public boolean isHeader;
 
     public ConfigDefinition(String key, int titleRes, int descRes, int iconRes, Object defaultValue) {
         this.key = key;
@@ -13,5 +14,13 @@ public class ConfigDefinition {
         this.descRes = descRes;
         this.iconRes = iconRes;
         this.defaultValue = defaultValue;
+        this.isHeader = false;
+    }
+
+    // Constructor for Header
+    public ConfigDefinition(int titleRes) {
+        this.titleRes = titleRes;
+        this.isHeader = true;
+        this.key = ""; // Dummy
     }
 }
