@@ -165,4 +165,13 @@
     <string name="remove_qns_ho_desc">移除低 RTP 质量时的 QNS 切换限制时间</string>
     <string name="remove_apn_readonly_title">移除 APN 只读限制</string>
     <string name="remove_apn_readonly_desc">允许编辑 APN 字段和类型</string>
+
+    <string name="nr_sinr_thresholds_title">5G NR SSSINR 阈值</string>
+    <string name="nr_sinr_thresholds_desc">信号 SINR 阈值</string>
+    <string name="display_5g_strength_title">显示 5G 信号强度</string>
+    <string name="display_5g_strength_desc">启用 5G 信号强度显示</string>
+    <string name="actual_band_check_title">5G 实际频段检查</string>
+    <string name="actual_band_check_desc">启用 5G 实际频段检查</string>
+    <string name="nr_rsrp_boost_title">NR RSRP 增强</string>
+    <string name="nr_rsrp_boost_desc">NR RSRP 增强值</string>
 </resources>

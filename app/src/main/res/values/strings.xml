@@ -165,4 +165,13 @@
     <string name="remove_qns_ho_desc">Remove QNS HO restrict time with low RTP quality</string>
     <string name="remove_apn_readonly_title">Remove APN Read-Only</string>
     <string name="remove_apn_readonly_desc">Allow editing APN fields and types</string>
+
+    <string name="nr_sinr_thresholds_title">5G NR SSSINR Thresholds</string>
+    <string name="nr_sinr_thresholds_desc">Signal SINR thresholds</string>
+    <string name="display_5g_strength_title">Display 5G Signal Strength</string>
+    <string name="display_5g_strength_desc">Enable display of 5G signal strength</string>
+    <string name="actual_band_check_title">5G Actual Band Check</string>
+    <string name="actual_band_check_desc">Enable 5G actual band check</string>
+    <string name="nr_rsrp_boost_title">NR RSRP Boost</string>
+    <string name="nr_rsrp_boost_desc">Boost value for NR RSRP</string>
 </resources>

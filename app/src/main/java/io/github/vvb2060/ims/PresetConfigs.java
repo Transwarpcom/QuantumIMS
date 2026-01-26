@@ -79,11 +79,19 @@ public class PresetConfigs {
             R.string.nr_icon_config_title, R.string.nr_icon_config_desc, R.drawable.ic_info,
             "connected_mmwave:5G_PLUS,connected:5G,connected_rrc_idle:5G,not_restricted_rrc_idle:5G,not_restricted_rrc_con:5G"));
         list.add(new ConfigDefinition(CarrierConfigManager.KEY_5G_NR_SSRSRP_THRESHOLDS_INT_ARRAY,
-            R.string.nr_thresholds_title, R.string.nr_thresholds_desc, R.drawable.ic_signal, new int[]{-125, -115, -105, -95}));
+            R.string.nr_thresholds_title, R.string.nr_thresholds_desc, R.drawable.ic_signal, new int[]{-110, -100, -90, -80}));
+        list.add(new ConfigDefinition(CarrierConfigManager.KEY_5G_NR_SSRSRQ_THRESHOLDS_INT_ARRAY,
+            R.string.nr_ssrsq_thresholds_title, R.string.nr_ssrsq_thresholds_desc, R.drawable.ic_signal, new int[]{-16, -12, -9, -6}));
+        list.add(new ConfigDefinition(CarrierConfigManager.KEY_5G_NR_SSSINR_THRESHOLDS_INT_ARRAY,
+            R.string.nr_sinr_thresholds_title, R.string.nr_sinr_thresholds_desc, R.drawable.ic_signal, new int[]{-3, 3, 12, 20}));
         list.add(new ConfigDefinition("lte_rsrp_thresholds_int_array",
             R.string.lte_thresholds_title, R.string.lte_thresholds_desc, R.drawable.ic_signal, new int[]{-125, -115, -105, -95}));
-        list.add(new ConfigDefinition("5g_nr_ssrsrq_thresholds_int_array",
-            R.string.nr_ssrsq_thresholds_title, R.string.nr_ssrsq_thresholds_desc, R.drawable.ic_signal, new int[]{-43, -20, -15, -10}));
+        list.add(new ConfigDefinition("config_enable_display_5g_signal_strength",
+            R.string.display_5g_strength_title, R.string.display_5g_strength_desc, R.drawable.ic_signal, true));
+        list.add(new ConfigDefinition("5g_nr_actual_band_check_bool",
+            R.string.actual_band_check_title, R.string.actual_band_check_desc, R.drawable.ic_signal, true));
+        list.add(new ConfigDefinition("nr_ssr_rsrp_boost_int",
+            R.string.nr_rsrp_boost_title, R.string.nr_rsrp_boost_desc, R.drawable.ic_signal, 0));
 
         // Section: GPS
         list.add(new ConfigDefinition(R.string.header_gps));
