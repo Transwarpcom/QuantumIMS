@@ -102,11 +102,6 @@ public class PresetConfigs {
         list.add(new ConfigDefinition("gps.realtime_psds_server",
             R.string.gps_realtime_title, R.string.gps_realtime_desc, R.drawable.ic_gps, "https://gllto.glpals.com/rtistatus4.dat"));
 
-        // Section: WiFi
-        list.add(new ConfigDefinition(R.string.header_wifi));
-        list.add(new ConfigDefinition("virtual.wifi_country_code",
-            R.string.wifi_country_code_title, R.string.wifi_country_code_desc, R.drawable.ic_signal, "AU"));
-
         // Section: Advanced
         list.add(new ConfigDefinition(R.string.header_advanced));
         list.add(new ConfigDefinition("imssms.sms_max_retry_over_ims_count_int",

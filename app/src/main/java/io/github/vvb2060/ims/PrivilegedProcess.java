@@ -77,17 +77,6 @@ public class PrivilegedProcess extends Instrumentation {
             // Apply Overrides
             applyCustomOverrides(getContext(), values);
 
-            // Handle WiFi Country Code
-            String wifiCountryCode = values.getString("virtual.wifi_country_code");
-            if (wifiCountryCode != null && wifiCountryCode.matches("^[A-Z]{2}$")) {
-                try {
-                    Log.i("PrivilegedProcess", "Setting WiFi country code to: " + wifiCountryCode);
-                    Runtime.getRuntime().exec("cmd wifi force-country-code enabled " + wifiCountryCode).waitFor();
-                } catch (Exception e) {
-                    Log.e("PrivilegedProcess", "Failed to set WiFi country code", e);
-                }
-            }
-
             // 读取用户选择的 SubId
             SharedPreferences prefs = getContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
             int selectedSubId = prefs.getInt("selected_subid", 1);

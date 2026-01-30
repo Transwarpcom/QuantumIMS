@@ -53,17 +53,6 @@ public class ImsConfigHelper {
                  values.putBoolean("virtual.remove_qns_ho_restrict", false);
             }
 
-            // Handle WiFi Country Code
-            String wifiCountryCode = values.getString("virtual.wifi_country_code");
-            if (wifiCountryCode != null && wifiCountryCode.matches("^[A-Z]{2}$")) {
-                try {
-                    Log.i(TAG, "Setting WiFi country code to: " + wifiCountryCode);
-                    Runtime.getRuntime().exec("cmd wifi force-country-code enabled " + wifiCountryCode).waitFor();
-                } catch (Exception e) {
-                    Log.e(TAG, "Failed to set WiFi country code", e);
-                }
-            }
-
             var bundle = cm.getConfigForSubId(subId, "vvb2060_config_version");
             if (bundle.getInt("vvb2060_config_version", 0) != BuildConfig.VERSION_CODE) {
                 values.putInt("vvb2060_config_version", BuildConfig.VERSION_CODE);
