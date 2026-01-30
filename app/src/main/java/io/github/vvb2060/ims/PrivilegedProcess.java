@@ -82,7 +82,12 @@ public class PrivilegedProcess extends Instrumentation {
             if (wifiCountryCode != null && wifiCountryCode.matches("^[A-Z]{2}$")) {
                 try {
                     Log.i("PrivilegedProcess", "Setting WiFi country code to: " + wifiCountryCode);
-                    Runtime.getRuntime().exec("cmd wifi force-country-code enabled " + wifiCountryCode).waitFor();
+                    Process p = Runtime.getRuntime().exec("su");
+                    java.io.OutputStream os = p.getOutputStream();
+                    os.write(("cmd wifi force-country-code enabled " + wifiCountryCode + "\n").getBytes());
+                    os.write("exit\n".getBytes());
+                    os.flush();
+                    p.waitFor();
                 } catch (Exception e) {
                     Log.e("PrivilegedProcess", "Failed to set WiFi country code", e);
                 }
