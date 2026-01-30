@@ -158,6 +158,7 @@
     <string name="header_signal">信号 / QNS</string>
     <string name="header_ui">界面 / 图标</string>
     <string name="header_gps">GPS</string>
+    <string name="header_wifi">WiFi</string>
     <string name="header_advanced">高级 / 其他</string>
 
     <!-- Virtual Keys -->
@@ -165,6 +166,9 @@
     <string name="remove_qns_ho_desc">移除低 RTP 质量时的 QNS 切换限制时间</string>
     <string name="remove_apn_readonly_title">移除 APN 只读限制</string>
     <string name="remove_apn_readonly_desc">允许编辑 APN 字段和类型</string>
+
+    <string name="wifi_country_code_title">WiFi 国家代码</string>
+    <string name="wifi_country_code_desc">强制设置 WiFi 国家代码 (cmd wifi)</string>
 
     <string name="nr_sinr_thresholds_title">5G NR SSSINR 阈值</string>
     <string name="nr_sinr_thresholds_desc">信号 SINR 阈值</string>

@@ -200,6 +200,11 @@ public class MainActivity extends Activity {
     private void onPresetItemClick(ConfigItem item) {
         if (item instanceof PresetConfigItem) {
             PresetConfigItem pItem = (PresetConfigItem) item;
+            if ("virtual.wifi_country_code".equals(pItem.key)) {
+                showCountrySelector(pItem);
+                return;
+            }
+
             if (pItem.defaultValue instanceof Boolean) {
                 // Toggle
                 boolean current = pItem.isOverridden ? (Boolean) pItem.overrideValue : (Boolean) pItem.defaultValue;
@@ -211,6 +216,32 @@ public class MainActivity extends Activity {
         } else {
             showEditDialog(item);
         }
+    }
+
+    private void showCountrySelector(ConfigItem item) {
+        String[] codes = java.util.Locale.getISOCountries();
+        java.util.Arrays.sort(codes);
+
+        String[] displayItems = new String[codes.length];
+        for (int i = 0; i < codes.length; i++) {
+            java.util.Locale l = new java.util.Locale("", codes[i]);
+            displayItems[i] = codes[i] + " (" + l.getDisplayCountry() + ")";
+        }
+
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
+        if (item instanceof PresetConfigItem) {
+            builder.setTitle(((PresetConfigItem)item).definition.titleRes);
+        } else {
+            builder.setTitle(item.key);
+        }
+
+        builder.setItems(displayItems, (dialog, which) -> {
+            saveOverride(item, codes[which]);
+        });
+        builder.setNeutralButton("Reset", (dialog, which) -> {
+            removeOverride(item);
+        });
+        builder.show();
     }
 
     private void showEditDialog(ConfigItem item) {
