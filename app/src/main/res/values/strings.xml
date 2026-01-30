@@ -158,7 +158,6 @@
     <string name="header_signal">Signal / QNS</string>
     <string name="header_ui">UI / Icons</string>
     <string name="header_gps">GPS</string>
-    <string name="header_wifi">WiFi</string>
     <string name="header_advanced">Advanced / Misc</string>
 
     <!-- Virtual Keys -->
@@ -166,9 +165,6 @@
     <string name="remove_qns_ho_desc">Remove QNS HO restrict time with low RTP quality</string>
     <string name="remove_apn_readonly_title">Remove APN Read-Only</string>
     <string name="remove_apn_readonly_desc">Allow editing APN fields and types</string>
-
-    <string name="wifi_country_code_title">WiFi Country Code</string>
-    <string name="wifi_country_code_desc">Force WiFi country code (cmd wifi)</string>
 
     <string name="nr_sinr_thresholds_title">5G NR SSSINR Thresholds</string>
     <string name="nr_sinr_thresholds_desc">Signal SINR thresholds</string>
