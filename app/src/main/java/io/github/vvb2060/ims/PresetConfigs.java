@@ -51,17 +51,17 @@ public class PresetConfigs {
         // Section: Signal / QNS
         list.add(new ConfigDefinition(R.string.header_signal));
         list.add(new ConfigDefinition("qns.minimum_handover_guarding_timer_ms_int",
-            R.string.qns_timer_title, R.string.qns_timer_desc, R.drawable.ic_signal, 3000));
+            R.string.qns_timer_title, R.string.qns_timer_desc, R.drawable.ic_signal, 1000));
         list.add(new ConfigDefinition("qns.voice_ngran_ssrsrp_int_array",
-            R.string.qns_rsrp_title, R.string.qns_rsrp_desc, R.drawable.ic_signal, new int[]{-105, -110}));
+            R.string.qns_rsrp_title, R.string.qns_rsrp_desc, R.drawable.ic_signal, new int[]{-120, -124}));
         list.add(new ConfigDefinition("qns.idle_ngran_ssrsrp_int_array",
-            R.string.qns_idle_rsrp_title, R.string.qns_idle_rsrp_desc, R.drawable.ic_signal, new int[]{-105, -110}));
+            R.string.qns_idle_rsrp_title, R.string.qns_idle_rsrp_desc, R.drawable.ic_signal, new int[]{-120, -124}));
         list.add(new ConfigDefinition("qns.voice_wifi_rssi_int_array",
             R.string.qns_voice_wifi_title, R.string.qns_voice_wifi_desc, R.drawable.ic_signal, new int[]{-85, -90}));
         list.add(new ConfigDefinition("qns.idle_wifi_rssi_int_array",
             R.string.qns_idle_wifi_title, R.string.qns_idle_wifi_desc, R.drawable.ic_signal, new int[]{-85, -90}));
         list.add(new ConfigDefinition("virtual.remove_qns_ho_restrict",
-            R.string.remove_qns_ho_title, R.string.remove_qns_ho_desc, R.drawable.ic_signal, false));
+            R.string.remove_qns_ho_title, R.string.remove_qns_ho_desc, R.drawable.ic_signal, true));
 
         // Section: UI / Icons
         list.add(new ConfigDefinition(R.string.header_ui));
@@ -79,7 +79,7 @@ public class PresetConfigs {
             R.string.nr_icon_config_title, R.string.nr_icon_config_desc, R.drawable.ic_info,
             "connected_mmwave:5G_PLUS,connected:5G,connected_rrc_idle:5G,not_restricted_rrc_idle:5G,not_restricted_rrc_con:5G"));
         list.add(new ConfigDefinition(CarrierConfigManager.KEY_5G_NR_SSRSRP_THRESHOLDS_INT_ARRAY,
-            R.string.nr_thresholds_title, R.string.nr_thresholds_desc, R.drawable.ic_signal, new int[]{-100, -95, -90, -80}));
+            R.string.nr_thresholds_title, R.string.nr_thresholds_desc, R.drawable.ic_signal, new int[]{-110, -100, -90, -80}));
         list.add(new ConfigDefinition(CarrierConfigManager.KEY_5G_NR_SSRSRQ_THRESHOLDS_INT_ARRAY,
             R.string.nr_ssrsq_thresholds_title, R.string.nr_ssrsq_thresholds_desc, R.drawable.ic_signal, new int[]{-16, -12, -9, -6}));
         list.add(new ConfigDefinition(CarrierConfigManager.KEY_5G_NR_SSSINR_THRESHOLDS_INT_ARRAY,
